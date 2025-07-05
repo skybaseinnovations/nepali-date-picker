@@ -1087,12 +1087,14 @@ var calendarFunctions = {};
       },
       getCalendarController: function ($nepaliDatePicker) {
         var calendarController = $("<div class='calendar-controller'>");
-        calendarController.append('<button type="button" class="prev-btn icon" title="prev">&lt;</button>');
+        // Use SVG for left arrow
+        calendarController.append('<button type="button" class="prev-btn icon" title="prev"><svg width="10" height="10" viewBox="0 0 18 18" fill="none" style="vertical-align:middle" xmlns="http://www.w3.org/2000/svg"><path d="M12 15L6 9L12 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>');
         // Year dropdown first, then month dropdown
         calendarController.append(datePickerPlugin.getYearDropOption($nepaliDatePicker));
         calendarController.append(datePickerPlugin.getMonthDropOption($nepaliDatePicker));
-        calendarController.append('<button type="button" class="today-btn icon" title="today">⦿</button>');
-        calendarController.append('<button type="button" class="next-btn icon" title="next">&gt;</button>');
+        calendarController.append('<button type="button" class="today-btn icon" title="today"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-circle"><circle cx="12" cy="12" r="10"></circle></svg></button>');
+        // Use SVG for right arrow
+        calendarController.append('<button type="button" class="next-btn icon" title="next"><svg width="10" height="10" viewBox="0 0 18 18" fill="none" style="vertical-align:middle" xmlns="http://www.w3.org/2000/svg"><path d="M6 3L12 9L6 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>');
         return calendarController;
       },
       getMonthDropOption: function ($nepaliDatePicker) {
@@ -1346,43 +1348,4 @@ window.nepaliDateUtils = {
   bsToAd: calendarFunctions.bsToAd
 };
 
-  var passCount = 0;
-  var failCount = 0;
-
-  tests.forEach(function (test, i) {
-    // Convert BS to AD
-    var ad = window.nepaliDateUtils.bsToAd(test.bs.y, test.bs.m, test.bs.d);
-    var adStr = ad.adYear + '-' + String(ad.adMonth).padStart(2, '0') + '-' + String(ad.adDay).padStart(2, '0');
-    var expectedAd = test.ad.y + '-' + String(test.ad.m).padStart(2, '0') + '-' + String(test.ad.d).padStart(2, '0');
-
-    // Convert AD to BS
-    var bs = window.nepaliDateUtils.adToBs(test.ad.y, test.ad.m, test.ad.d);
-    var bsStr = bs.bsYear + '-' + String(bs.bsMonth).padStart(2, '0') + '-' + String(bs.bsDay).padStart(2, '0');
-    var expectedBs = test.bs.y + '-' + String(test.bs.m).padStart(2, '0') + '-' + String(test.bs.d).padStart(2, '0');
-
-    // Compare and log results for BS to AD conversion
-    var bsToAdPass = adStr === expectedAd;
-    var adToBsPass = bsStr === expectedBs;
-
-    if (bsToAdPass && adToBsPass) {
-      passCount++;
-      console.log(`Test ${i + 1} passed!`);
-      console.log(`  BS to AD conversion: ${test.bs.y}-${String(test.bs.m).padStart(2, '0')}-${String(test.bs.d).padStart(2, '0')} → ${adStr} (expected: ${expectedAd})`);
-      console.log(`  AD to BS conversion: ${test.ad.y}-${String(test.ad.m).padStart(2, '0')}-${String(test.ad.d).padStart(2, '0')} → ${bsStr} (expected: ${expectedBs})`);
-    } else {
-      failCount++;
-      if (!bsToAdPass) {
-        console.log(`Test ${i + 1} BS→AD failed: got ${adStr}, expected ${expectedAd}`);
-      }
-      if (!adToBsPass) {
-        console.log(`Test ${i + 1} AD→BS failed: got ${bsStr}, expected ${expectedBs}`);
-      }
-      console.log(`Test ${i + 1} failed.`);
-      console.log(`  BS to AD conversion: ${test.bs.y}-${String(test.bs.m).padStart(2, '0')}-${String(test.bs.d).padStart(2, '0')} → ${adStr} (expected: ${expectedAd})`);
-      console.log(`  AD to BS conversion: ${test.ad.y}-${String(test.ad.m).padStart(2, '0')}-${String(test.ad.d).padStart(2, '0')} → ${bsStr} (expected: ${expectedBs})`);
-    }
-  });
-
-  console.log(`\nTotal Passed: ${passCount}`);
-  console.log(`Total Failed: ${failCount}`);
-})();
+  
