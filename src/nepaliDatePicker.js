@@ -633,7 +633,8 @@ var calendarFunctions = {};
         var $datePickerWrapper = $('.nepali-date-picker');
         $(document).click(function (event) {
           var $targetElement = $(event.target);
-          if (!$targetElement.is($('.nepali-date-picker'))) {
+          // Fix: Only hide if click is outside the entire picker
+          if ($targetElement.closest('.nepali-date-picker').length === 0) {
             $datePickerWrapper.hide();
             $datePickerWrapper.find('.drop-down-content').hide();
           }
