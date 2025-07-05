@@ -26,8 +26,9 @@ var calendarFunctions = {};
     // Language support
     languages: calendarLanguages,
     
-    // Nepali numbers for display
-    nepaliNumbers: ['०', '१', '२', '३', '४', '५', '६', '७', '८', '९'],
+    // Number systems for display
+    npNumbers: ['०', '१', '२', '३', '४', '५', '६', '७', '८', '९'],
+    enNumbers: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
     
     // Year range
     minBsYear: 1970,
@@ -39,7 +40,7 @@ var calendarFunctions = {};
       bs: { year: 1970, month: 1, date: 1 }
     },
 
-    // More readable year-based month days data
+    // Year-based month days data
     // Each year contains an array of 12 numbers representing days in each month
     monthDaysByYear: {
       1970: [30, 31, 31, 31, 31, 30, 29, 29, 29, 29, 29, 30],
@@ -253,19 +254,22 @@ var calendarFunctions = {};
      * @param {Number} number
      * @returns {String} nepaliNumber
      */
-    getNepaliNumber: function (number) {
+    getNepaliNumber: function (number, language) {
       if (typeof number === 'undefined') {
         throw new Error('Parameter number is required');
       } else if (typeof number != 'number' || number < 0) {
         throw new Error('Number should be positive integer');
       }
 
+      var currentLanguage = language || window.nepaliDatePickerLanguage || 'en';
+      var numbers = currentLanguage === 'np' ? calendarData.npNumbers : calendarData.enNumbers;
+
       var prefixNum = Math.floor(number / 10);
       var suffixNum = number % 10;
       if (prefixNum !== 0) {
-        return calendarFunctions.getNepaliNumber(prefixNum) + calendarData.nepaliNumbers[suffixNum];
+        return calendarFunctions.getNepaliNumber(prefixNum, language) + numbers[suffixNum];
       } else {
-        return calendarData.nepaliNumbers[suffixNum];
+        return numbers[suffixNum];
       }
     },
     /**
@@ -273,18 +277,21 @@ var calendarFunctions = {};
      * @param {String} nepaliNumber
      * @returns {Number} number
      */
-    getNumberByNepaliNumber: function (nepaliNumber) {
+    getNumberByNepaliNumber: function (nepaliNumber, language) {
       if (typeof nepaliNumber === 'undefined') {
         throw new Error('Parameter nepaliNumber is required');
       } else if (typeof nepaliNumber !== 'string') {
         throw new Error('Parameter nepaliNumber should be in string');
       }
 
+      var currentLanguage = language || window.nepaliDatePickerLanguage || 'en';
+      var numbers = currentLanguage === 'np' ? calendarData.npNumbers : calendarData.enNumbers;
+
       var number = 0;
       for (var i = 0; i < nepaliNumber.length; i++) {
-        var numIndex = calendarData.nepaliNumbers.indexOf(nepaliNumber.charAt(i));
+        var numIndex = numbers.indexOf(nepaliNumber.charAt(i));
         if (numIndex === -1) {
-          throw new Error('Invalid nepali number');
+          throw new Error('Invalid number for language: ' + currentLanguage);
         }
         number = number * 10 + numIndex;
       }
@@ -519,11 +526,11 @@ var calendarFunctions = {};
       var eqAdDate = calendarFunctions.getAdDateByBsDate(bsYear, bsMonth, bsDate);
       var weekDay = eqAdDate.getDay() + 1;
       var formattedDate = dateFormatPattern;
-      formattedDate = formattedDate.replace(/%d/g, calendarFunctions.getNepaliNumber(bsDate));
-      formattedDate = formattedDate.replace(/%y/g, calendarFunctions.getNepaliNumber(bsYear));
-      formattedDate = formattedDate.replace(/%m/g, calendarFunctions.getNepaliNumber(bsMonth));
       // Get current language from global options (default to 'en')
       var currentLanguage = window.nepaliDatePickerLanguage || 'en';
+      formattedDate = formattedDate.replace(/%d/g, calendarFunctions.getNepaliNumber(bsDate, currentLanguage));
+      formattedDate = formattedDate.replace(/%y/g, calendarFunctions.getNepaliNumber(bsYear, currentLanguage));
+      formattedDate = formattedDate.replace(/%m/g, calendarFunctions.getNepaliNumber(bsMonth, currentLanguage));
       var months = calendarData.languages[currentLanguage].months;
       var days = calendarData.languages[currentLanguage].days;
       
@@ -554,10 +561,10 @@ var calendarFunctions = {};
           var value = tempText.substring(0, endIndex);
 
           if (valueOf === '%y') {
-            extractedFormattedBsDate.bsYear = calendarFunctions.getNumberByNepaliNumber(value);
+            extractedFormattedBsDate.bsYear = calendarFunctions.getNumberByNepaliNumber(value, currentLanguage);
             diffTextNum += value.length - 2;
           } else if (valueOf === '%d') {
-            extractedFormattedBsDate.bsDate = calendarFunctions.getNumberByNepaliNumber(value);
+            extractedFormattedBsDate.bsDate = calendarFunctions.getNumberByNepaliNumber(value, currentLanguage);
             diffTextNum += value.length - 2;
           } else if (valueOf === '%D') {
             // Get current language from global options (default to 'en')
@@ -566,7 +573,7 @@ var calendarFunctions = {};
             extractedFormattedBsDate.bsDay = days.indexOf(value) + 1;
             diffTextNum += value.length - 2;
           } else if (valueOf === '%m') {
-            extractedFormattedBsDate.bsMonth = calendarFunctions.getNumberByNepaliNumber(value);
+            extractedFormattedBsDate.bsMonth = calendarFunctions.getNumberByNepaliNumber(value, currentLanguage);
             diffTextNum += value.length - 2;
           } else if (valueOf === '%M') {
             // Get current language from global options (default to 'en')
@@ -898,12 +905,13 @@ var calendarFunctions = {};
       getYearDropOption: function ($nepaliDatePicker) {
         var datePickerData = $nepaliDatePicker.data();
         var $yearSpan = $('<div class="current-year-txt">');
-        $yearSpan.text(calendarFunctions.getNepaliNumber(datePickerData.bsYear));
+        var currentLanguage = datePickerPlugin.options.language;
+        $yearSpan.text(calendarFunctions.getNepaliNumber(datePickerData.bsYear, currentLanguage));
         $yearSpan.append('<i class="icon icon-drop-down">');
         var data = [];
         for (var i = datePickerPlugin.options.yearStart; i <= datePickerPlugin.options.yearEnd; i++) {
           data.push({
-            label: calendarFunctions.getNepaliNumber(i),
+            label: calendarFunctions.getNepaliNumber(i, currentLanguage),
             value: i
           });
         }
@@ -978,13 +986,14 @@ var calendarFunctions = {};
             }
 
             if (isCurrentMonthDate) {
+              var currentLanguage = datePickerPlugin.options.language;
               var $td = $(
                 '<td class="current-month-date" data-date="' +
                   calendarDate +
                   '" data-weekDay="' +
                   (k - 1) +
                   '">' +
-                  calendarFunctions.getNepaliNumber(calendarDate) +
+                  calendarFunctions.getNepaliNumber(calendarDate, currentLanguage) +
                   '</td>'
               );
               if (calendarDate == datePickerData.bsDate) {
@@ -993,8 +1002,9 @@ var calendarFunctions = {};
               datePickerPlugin.disableIfOutOfRange($td, datePickerData, minBsDate, maxBsDate, calendarDate);
               tableRow.append($td);
             } else {
+              var currentLanguage = datePickerPlugin.options.language;
               tableRow.append(
-                '<td class="other-month-date">' + calendarFunctions.getNepaliNumber(calendarDate) + '</td>'
+                '<td class="other-month-date">' + calendarFunctions.getNepaliNumber(calendarDate, currentLanguage) + '</td>'
               );
             }
           }
