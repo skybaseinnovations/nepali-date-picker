@@ -871,12 +871,12 @@ var calendarFunctions = {};
       },
       getCalendarController: function ($nepaliDatePicker) {
         var calendarController = $("<div class='calendar-controller'>");
-        calendarController.append('<a href="javascript:void(0);" class="prev-btn icon" title="prev"></a>');
+        calendarController.append('<button type="button" class="prev-btn icon" title="prev">&lt;</button>');
         // Year dropdown first, then month dropdown
         calendarController.append(datePickerPlugin.getYearDropOption($nepaliDatePicker));
         calendarController.append(datePickerPlugin.getMonthDropOption($nepaliDatePicker));
         calendarController.append('<a href="javascript:void(0);" class="today-btn icon" title=""></a>');
-        calendarController.append('<a href="javascript:void(0);" class="next-btn icon" title="next"></a>');
+        calendarController.append('<button type="button" class="next-btn icon" title="next">&gt;</button>');
         return calendarController;
       },
       getMonthDropOption: function ($nepaliDatePicker) {

@@ -149,17 +149,18 @@
 
 .current-year-txt,
 .current-month-txt {
-  flex: 1 1 0;
-  min-width: 0;
-  margin: 0 2px;
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 32px;
+  line-height: 32px;
+  flex: 1 1 0;
+  min-width: 0;
+  margin: 0 2px;
   background: #f1f5f9;
   border-radius: 6px;
   font-size: 14px;
   font-weight: 600;
-  height: 32px;
   padding: 0 8px;
   position: relative;
   cursor: pointer;
