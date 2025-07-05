@@ -588,6 +588,47 @@ function convertBsToAd() {
             const timestamp = new Date().toLocaleTimeString();
             output.innerHTML = `[${timestamp}] ${message}`;
         }
+
+        const toBsString = ({ y, m, d }) => {
+            const pad = (n) => String(n).padStart(2, '0');
+            return `${y}-${pad(m)}-${pad(d)}`;
+          };
+          
+          const convertDate = async (bsDateObj) => {
+            const response = await fetch('https://api.nepalipatro.com.np/calendars/dateConvert', {
+              method: 'POST',
+              headers: {
+                'accept': 'application/json, text/plain, */*',
+                'content-type': 'application/json',
+              },
+              body: JSON.stringify({ date: toBsString(bsDateObj), based_on: 'BS' }),
+            });
+          
+            const json = await response.json();
+            const [y, m, d] = json.ad.split('-').map(Number);
+            return {
+              bs: bsDateObj,
+              ad: { y, m, d }
+            };
+          };
+          
+          (async () => {
+            const tests = [];
+          
+            for (let year = 2050; year <= 2085; year++) {
+              for (let month = 1; month <= 12; month++) {
+                const bsDate = { y: year, m: month, d: 15 };
+                try {
+                  //const converted = await convertDate(bsDate);
+                  //tests.push(converted);
+                } catch (err) {
+                  console.error('Error:', bsDate, err);
+                }
+              }
+            }
+          
+            console.log("var tests = ", JSON.stringify(tests, null, 2));
+          })();
     </script>
     <div class="footer">
         Made with ❤️ and a little bit of caffeine by <strong>Skybase Innovations</strong>.<br>
