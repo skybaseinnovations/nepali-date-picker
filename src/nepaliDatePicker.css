@@ -99,11 +99,21 @@
 }
 
 .nepali-date-picker .icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   opacity: 0.7;
   background-size: 18px 18px;
   background-repeat: no-repeat;
   background-position: center;
   transition: all 0.2s ease-in-out;
+  padding: 0;
+}
+.nepali-date-picker .icon svg {
+  display: block;
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
 }
 
 .nepali-date-picker .icon:hover {

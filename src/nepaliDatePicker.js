@@ -1092,7 +1092,7 @@ var calendarFunctions = {};
         // Year dropdown first, then month dropdown
         calendarController.append(datePickerPlugin.getYearDropOption($nepaliDatePicker));
         calendarController.append(datePickerPlugin.getMonthDropOption($nepaliDatePicker));
-        calendarController.append('<button type="button" class="today-btn icon" title="today"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-circle"><circle cx="12" cy="12" r="10"></circle></svg></button>');
+        calendarController.append('<button type="button" class="today-btn icon" style="color: #000" title="today"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-circle"><circle cx="12" cy="12" r="10"></circle></svg></button>');
         // Use SVG for right arrow
         calendarController.append('<button type="button" class="next-btn icon" title="next"><svg width="10" height="10" viewBox="0 0 18 18" fill="none" style="vertical-align:middle" xmlns="http://www.w3.org/2000/svg"><path d="M6 3L12 9L6 15" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>');
         return calendarController;
