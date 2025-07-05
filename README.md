@@ -89,5 +89,13 @@ window.nepaliDateUtils.bsToAd(bsYear, bsMonth, bsDay); // returns {adYear, adMon
 - Accurate BS↔AD conversion
 - Customizable
 
+## TODO & Future
+- **Range Picker**: Support for selecting a date range (start and end date).
+- **Range Templates (Presets)**: Quick-select options like last 3 days, last 7 days, this month, etc.
+
 ## License
-MIT 
+MIT
+
+---
+
+<sub>Made with ❤️ and a little bit of caffeine by <a href="https://skybase.com.np" target="_blank">Skybase Innovations</a>.<br>One of the many things we build so you don't have to.</sub> 
