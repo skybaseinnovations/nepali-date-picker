@@ -222,19 +222,28 @@
         </div>
         
         <div class="content">
-            <!-- Basic Usage Section -->
+            <!-- Language Support Section -->
             <div class="demo-section">
-                <h2>📅 Basic Usage</h2>
-                <p>Simple date picker with default settings:</p>
+                <h2>🌍 Language Support</h2>
+                <p>Date picker with language options (English and Nepali):</p>
                 
-                <div class="form-group">
-                    <label for="basic-date">Select Date:</label>
-                    <input type="text" id="basic-date" placeholder="Click to select date">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="basic-date">English Date Picker:</label>
+                        <input type="text" id="basic-date" placeholder="Click to select date">
+                    </div>
+                    <div class="form-group">
+                        <label for="nepali-date">Nepali Date Picker:</label>
+                        <input type="text" id="nepali-date" placeholder="Click to select date">
+                    </div>
                 </div>
                 
                 <div class="code-block">
-// Basic initialization
-$('#basic-date').nepaliDatePicker();
+// English date picker
+$('#basic-date').nepaliDatePicker({ language: 'en' });
+
+// Nepali date picker
+$('#nepali-date').nepaliDatePicker({ language: 'np' });
                 </div>
             </div>
             
@@ -437,33 +446,40 @@ function convertBsToAd() {
     
     <script>
         $(document).ready(function() {
-            // Basic date picker
-            $('#basic-date').nepaliDatePicker();
+            // Basic date picker (English)
+            $('#basic-date').nepaliDatePicker({ language: 'en' });
             
-            // Custom format date picker
+            // Nepali date picker
+            $('#nepali-date').nepaliDatePicker({ language: 'np' });
+            
+            // Custom format date picker (Nepali)
             $('#custom-date').nepaliDatePicker({
                 dateFormat: "%M %d, %y",
-                closeOnDateSelect: false
+                closeOnDateSelect: false,
+                language: 'np'
             });
             
-            // Date range restriction
+            // Date range restriction (English)
             $('#range-date').nepaliDatePicker({
                 yearStart: 2080,
-                yearEnd: 2085
+                yearEnd: 2085,
+                language: 'en'
             });
             
-            // Min date
+            // Min date (Nepali)
             $('#min-date').nepaliDatePicker({
-                minDate: "आइत, बैशाख १, २०८०"
+                minDate: "आइत, बैशाख १, २०८०",
+                language: 'np'
             });
             
-            // Max date
+            // Max date (Nepali)
             $('#max-date').nepaliDatePicker({
-                maxDate: "सोम, पौष १५, २०८५"
+                maxDate: "सोम, पौष १५, २०८५",
+                language: 'np'
             });
             
-            // Event handling
-            $('#event-date').nepaliDatePicker()
+            // Event handling (English)
+            $('#event-date').nepaliDatePicker({ language: 'en' })
                 .on('dateSelect', function(e) {
                     logEvent('dateSelect', e.datePickerData);
                 })

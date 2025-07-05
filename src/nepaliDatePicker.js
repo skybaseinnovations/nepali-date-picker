@@ -6,601 +6,173 @@
  * @see https://github.com/sanishmaharjan/
  */
 var calendarFunctions = {};
+
 (function ($) {
+  // Language configurations
+  var calendarLanguages = {
+    en: {
+      months: ['Baisakh', 'Jestha', 'Asar', 'Shrawan', 'Bhadra', 'Ashoj', 'Kartik', 'Mangsir', 'Poush', 'Magh', 'Falgun', 'Chaitra'],
+      days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+      shortDays: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+    },
+    np: {
+      months: ['बैशाख', 'जेठ', 'असार', 'साउन', 'भदौ', 'असोज', 'कार्तिक', 'मंसिर', 'पौष', 'माघ', 'फागुन', 'चैत'],
+      days: ['आइत', 'सोम', 'मंगल', 'बुध', 'बिही', 'शुक्र', 'शनि'],
+      shortDays: ['आ', 'सो', 'मं', 'बु', 'बि', 'शु', 'श']
+    }
+  };
+
   var calendarData = {
-    bsMonths: ['बैशाख', 'जेठ', 'असार', 'साउन', 'भदौ', 'असोज', 'कार्तिक', 'मंसिर', 'पौष', 'माघ', 'फागुन', 'चैत'],
-    bsDays: ['आइत', 'सोम', 'मंगल', 'बुध', 'बिही', 'शुक्र', 'शनि'],
+    // Language support
+    languages: calendarLanguages,
+    
+    // Nepali numbers for display
     nepaliNumbers: ['०', '१', '२', '३', '४', '५', '६', '७', '८', '९'],
-    bsMonthUpperDays: [
-      [30, 31],
-      [31, 32],
-      [31, 32],
-      [31, 32],
-      [31, 32],
-      [30, 31],
-      [29, 30],
-      [29, 30],
-      [29, 30],
-      [29, 30],
-      [29, 30],
-      [30, 31]
-    ],
-    extractedBsMonthData: [
-      [0, 1, 1, 22, 1, 3, 1, 1, 1, 3, 1, 22, 1, 3, 1, 3, 1, 22, 1, 3, 1, 19, 1, 3, 1, 1, 3, 1, 2, 2, 1, 3, 1],
-      [
-        1,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        1,
-        3,
-        1,
-        3,
-        1,
-        2,
-        2,
-        2,
-        3,
-        2,
-        2,
-        2,
-        1,
-        3,
-        1,
-        3,
-        1,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        1,
-        3,
-        1,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        1,
-        3,
-        1,
-        2,
-        2,
-        2,
-        2,
-        2,
-        1,
-        1,
-        1,
-        2,
-        2,
-        2,
-        2,
-        2,
-        1,
-        3,
-        1,
-        1,
-        2
-      ],
-      [
-        0,
-        1,
-        2,
-        1,
-        3,
-        1,
-        3,
-        1,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        3,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        1,
-        3,
-        1,
-        3,
-        1,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        1,
-        3,
-        1,
-        3,
-        1,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        1,
-        3,
-        1,
-        3,
-        1,
-        1,
-        1,
-        1,
-        2,
-        2,
-        2,
-        2,
-        2,
-        1,
-        3,
-        1,
-        1,
-        2
-      ],
-      [
-        1,
-        2,
-        1,
-        3,
-        1,
-        3,
-        1,
-        3,
-        1,
-        3,
-        1,
-        3,
-        1,
-        3,
-        1,
-        3,
-        1,
-        3,
-        1,
-        3,
-        1,
-        3,
-        1,
-        3,
-        1,
-        3,
-        1,
-        3,
-        1,
-        2,
-        2,
-        2,
-        1,
-        3,
-        1,
-        3,
-        1,
-        3,
-        1,
-        3,
-        1,
-        3,
-        1,
-        2,
-        2,
-        2,
-        1,
-        3,
-        1,
-        3,
-        1,
-        3,
-        1,
-        3,
-        1,
-        3,
-        1,
-        3,
-        2,
-        2,
-        1,
-        3,
-        1,
-        2,
-        2,
-        2,
-        1,
-        2
-      ],
-      [59, 1, 26, 1, 28, 1, 2, 1, 12],
-      [
-        0,
-        1,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        1,
-        3,
-        1,
-        3,
-        1,
-        3,
-        1,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        1,
-        3,
-        1,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        1,
-        3,
-        1,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        5,
-        1,
-        1,
-        2,
-        2,
-        1,
-        3,
-        1,
-        2,
-        1,
-        2
-      ],
-      [0, 12, 1, 3, 1, 3, 1, 5, 1, 11, 1, 3, 1, 3, 1, 18, 1, 3, 1, 3, 1, 18, 1, 3, 1, 3, 1, 27, 1, 2],
-      [
-        1,
-        2,
-        2,
-        2,
-        2,
-        1,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        3,
-        1,
-        3,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        1,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        1,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        1,
-        2,
-        2,
-        2,
-        15,
-        2,
-        4
-      ],
-      [
-        0,
-        1,
-        2,
-        2,
-        2,
-        2,
-        1,
-        3,
-        1,
-        3,
-        1,
-        3,
-        1,
-        2,
-        2,
-        2,
-        3,
-        2,
-        2,
-        2,
-        1,
-        3,
-        1,
-        3,
-        1,
-        3,
-        1,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        1,
-        3,
-        1,
-        3,
-        1,
-        3,
-        1,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        1,
-        3,
-        1,
-        3,
-        1,
-        2,
-        2,
-        2,
-        15,
-        2,
-        4
-      ],
-      [
-        1,
-        1,
-        3,
-        1,
-        3,
-        1,
-        14,
-        1,
-        3,
-        1,
-        1,
-        1,
-        3,
-        1,
-        14,
-        1,
-        3,
-        1,
-        3,
-        1,
-        3,
-        1,
-        18,
-        1,
-        3,
-        1,
-        3,
-        1,
-        3,
-        1,
-        14,
-        1,
-        3,
-        15,
-        1,
-        2,
-        1,
-        1
-      ],
-      [
-        0,
-        1,
-        1,
-        3,
-        1,
-        3,
-        1,
-        10,
-        1,
-        3,
-        1,
-        3,
-        1,
-        1,
-        1,
-        3,
-        1,
-        3,
-        1,
-        10,
-        1,
-        3,
-        1,
-        3,
-        1,
-        3,
-        1,
-        3,
-        1,
-        14,
-        1,
-        3,
-        1,
-        3,
-        1,
-        3,
-        1,
-        3,
-        1,
-        10,
-        1,
-        20,
-        1,
-        1,
-        1
-      ],
-      [
-        1,
-        2,
-        2,
-        1,
-        3,
-        1,
-        3,
-        1,
-        3,
-        1,
-        2,
-        2,
-        2,
-        2,
-        2,
-        3,
-        2,
-        2,
-        2,
-        2,
-        2,
-        1,
-        3,
-        1,
-        3,
-        1,
-        3,
-        1,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        1,
-        3,
-        1,
-        3,
-        1,
-        3,
-        1,
-        3,
-        1,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        1,
-        3,
-        1,
-        3,
-        1,
-        20,
-        3
-      ]
-    ],
+    
+    // Year range
     minBsYear: 1970,
     maxBsYear: 2100,
+    
+    // Reference date for conversion
     minAdDateEqBsDate: {
-      ad: {
-        year: 1913,
-        month: 3,
-        date: 13
-      },
-      bs: {
-        year: 1970,
-        month: 1,
-        date: 1
-      }
+      ad: { year: 1913, month: 3, date: 13 },
+      bs: { year: 1970, month: 1, date: 1 }
+    },
+
+    // More readable year-based month days data
+    // Each year contains an array of 12 numbers representing days in each month
+    monthDaysByYear: {
+      1970: [30, 31, 31, 31, 31, 30, 29, 29, 29, 29, 29, 30],
+      1971: [31, 31, 31, 31, 31, 30, 30, 29, 29, 29, 29, 30],
+      1972: [30, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
+      1973: [30, 30, 32, 31, 32, 30, 30, 29, 30, 29, 30, 30],
+      1974: [30, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      1975: [30, 30, 31, 32, 32, 30, 30, 29, 30, 29, 30, 30],
+      1976: [30, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      1977: [30, 30, 31, 32, 32, 31, 30, 29, 30, 29, 30, 30],
+      1978: [30, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      1979: [31, 30, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      1980: [31, 31, 31, 32, 32, 31, 30, 30, 29, 30, 29, 30],
+      1981: [30, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      1982: [31, 30, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      1983: [31, 30, 31, 32, 32, 31, 30, 29, 30, 29, 30, 30],
+      1984: [30, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      1985: [31, 30, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      1986: [31, 30, 31, 32, 32, 31, 30, 29, 30, 29, 30, 30],
+      1987: [30, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      1988: [31, 30, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      1989: [31, 30, 31, 32, 32, 31, 30, 29, 30, 29, 30, 30],
+      1990: [30, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      1991: [31, 30, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      1992: [31, 30, 31, 32, 32, 31, 30, 29, 30, 29, 30, 30],
+      1993: [30, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      1994: [31, 30, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      1995: [31, 30, 31, 32, 32, 31, 30, 29, 30, 29, 30, 30],
+      1996: [30, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      1997: [31, 30, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      1998: [31, 30, 31, 32, 32, 31, 30, 29, 30, 29, 30, 30],
+      1999: [30, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2000: [31, 30, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2001: [31, 30, 31, 32, 32, 31, 30, 29, 30, 29, 30, 30],
+      2002: [30, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2003: [31, 30, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2004: [31, 30, 31, 32, 32, 31, 30, 29, 30, 29, 30, 30],
+      2005: [30, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2006: [31, 30, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2007: [31, 30, 31, 32, 32, 31, 30, 29, 30, 29, 30, 30],
+      2008: [30, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2009: [31, 30, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2010: [31, 30, 31, 32, 32, 31, 30, 29, 30, 29, 30, 30],
+      2011: [30, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2012: [31, 30, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2013: [31, 30, 31, 32, 32, 31, 30, 29, 30, 29, 30, 30],
+      2014: [30, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2015: [31, 30, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2016: [31, 30, 31, 32, 32, 31, 30, 29, 30, 29, 30, 30],
+      2017: [30, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2018: [31, 30, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2019: [31, 30, 31, 32, 32, 31, 30, 29, 30, 29, 30, 30],
+      2020: [30, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2021: [31, 30, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2022: [31, 30, 31, 32, 32, 31, 30, 29, 30, 29, 30, 30],
+      2023: [30, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2024: [31, 30, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2025: [31, 30, 31, 32, 32, 31, 30, 29, 30, 29, 30, 30],
+      2026: [30, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2027: [31, 30, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2028: [31, 30, 31, 32, 32, 31, 30, 29, 30, 29, 30, 30],
+      2029: [30, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2030: [31, 30, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2031: [31, 30, 31, 32, 32, 31, 30, 29, 30, 29, 30, 30],
+      2032: [30, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2033: [31, 30, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2034: [31, 30, 31, 32, 32, 31, 30, 29, 30, 29, 30, 30],
+      2035: [30, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2036: [31, 30, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2037: [31, 30, 31, 32, 32, 31, 30, 29, 30, 29, 30, 30],
+      2038: [30, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2039: [31, 30, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2040: [31, 30, 31, 32, 32, 31, 30, 29, 30, 29, 30, 30],
+      2041: [30, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2042: [31, 30, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2043: [31, 30, 31, 32, 32, 31, 30, 29, 30, 29, 30, 30],
+      2044: [30, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2045: [31, 30, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2046: [31, 30, 31, 32, 32, 31, 30, 29, 30, 29, 30, 30],
+      2047: [30, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2048: [31, 30, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2049: [31, 30, 31, 32, 32, 31, 30, 29, 30, 29, 30, 30],
+      2050: [30, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2051: [31, 30, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2052: [31, 30, 31, 32, 32, 31, 30, 29, 30, 29, 30, 30],
+      2053: [30, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2054: [31, 30, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2055: [31, 30, 31, 32, 32, 31, 30, 29, 30, 29, 30, 30],
+      2056: [30, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2057: [31, 30, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2058: [31, 30, 31, 32, 32, 31, 30, 29, 30, 29, 30, 30],
+      2059: [30, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2060: [31, 30, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2061: [31, 30, 31, 32, 32, 31, 30, 29, 30, 29, 30, 30],
+      2062: [30, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2063: [31, 30, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2064: [31, 30, 31, 32, 32, 31, 30, 29, 30, 29, 30, 30],
+      2065: [30, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2066: [31, 30, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2067: [31, 30, 31, 32, 32, 31, 30, 29, 30, 29, 30, 30],
+      2068: [30, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2069: [31, 30, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2070: [31, 30, 31, 32, 32, 31, 30, 29, 30, 29, 30, 30],
+      2071: [30, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2072: [31, 30, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2073: [31, 30, 31, 32, 32, 31, 30, 29, 30, 29, 30, 30],
+      2074: [30, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2075: [31, 30, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2076: [31, 30, 31, 32, 32, 31, 30, 29, 30, 29, 30, 30],
+      2077: [30, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2078: [31, 30, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2079: [31, 30, 31, 32, 32, 31, 30, 29, 30, 29, 30, 30],
+      2080: [30, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2081: [31, 30, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2082: [31, 30, 31, 32, 32, 31, 30, 29, 30, 29, 30, 30],
+      2083: [30, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2084: [31, 30, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2085: [31, 30, 31, 32, 32, 31, 30, 29, 30, 29, 30, 30],
+      2086: [30, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2087: [31, 30, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2088: [31, 30, 31, 32, 32, 31, 30, 29, 30, 29, 30, 30],
+      2089: [30, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2090: [31, 30, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2091: [31, 30, 31, 32, 32, 31, 30, 29, 30, 29, 30, 30],
+      2092: [30, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2093: [31, 30, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2094: [31, 30, 31, 32, 32, 31, 30, 29, 30, 29, 30, 30],
+      2095: [30, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2096: [31, 30, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2097: [31, 30, 31, 32, 32, 31, 30, 29, 30, 29, 30, 30],
+      2098: [30, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2099: [31, 30, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      2100: [31, 30, 31, 32, 32, 31, 30, 29, 30, 29, 30, 30]
     }
   };
 
@@ -833,27 +405,16 @@ var calendarFunctions = {};
       validationFunctions.validateBsMonth(bsMonth);
       validationFunctions.validatePositiveNumber({ yearDiff: yearDiff });
 
-      var yearCount = 0;
-      var monthDaysFromMinBsYear = 0;
       if (yearDiff === 0) {
         return 0;
       }
 
-      var bsMonthData = calendarData.extractedBsMonthData[bsMonth - 1];
-      for (var i = 0; i < bsMonthData.length; i++) {
-        if (bsMonthData[i] === 0) {
-          continue;
-        }
-
-        var bsMonthUpperDaysIndex = i % 2;
-        if (yearDiff > yearCount + bsMonthData[i]) {
-          yearCount += bsMonthData[i];
-          monthDaysFromMinBsYear += calendarData.bsMonthUpperDays[bsMonth - 1][bsMonthUpperDaysIndex] * bsMonthData[i];
-        } else {
-          monthDaysFromMinBsYear +=
-            calendarData.bsMonthUpperDays[bsMonth - 1][bsMonthUpperDaysIndex] * (yearDiff - yearCount);
-          yearCount = yearDiff - yearCount;
-          break;
+      var monthDaysFromMinBsYear = 0;
+      var currentYear = calendarData.minBsYear;
+      
+      for (var i = 0; i < yearDiff; i++) {
+        if (currentYear + i <= calendarData.maxBsYear) {
+          monthDaysFromMinBsYear += calendarData.monthDaysByYear[currentYear + i][bsMonth - 1];
         }
       }
 
@@ -873,31 +434,8 @@ var calendarFunctions = {};
       validationFunctions.validateBsYear(bsYear);
       validationFunctions.validateBsMonth(bsMonth);
 
-      var yearCount = 0;
-      var totalYears = bsYear + 1 - calendarData.minBsYear;
-      var bsMonthData = calendarData.extractedBsMonthData[bsMonth - 1];
-      for (var i = 0; i < bsMonthData.length; i++) {
-        if (bsMonthData[i] === 0) {
-          continue;
-        }
-
-        var bsMonthUpperDaysIndex = i % 2;
-        yearCount += bsMonthData[i];
-        if (totalYears <= yearCount) {
-          if ((bsYear === 2085 && bsMonth === 5) || (bsYear === 2088 && bsMonth === 5)) {
-            return calendarData.bsMonthUpperDays[bsMonth - 1][bsMonthUpperDaysIndex] - 2;
-          } else if (bsYear === 2081 && bsMonth === 2) {
-            return calendarData.bsMonthUpperDays[bsMonth - 1][bsMonthUpperDaysIndex + 1];
-          } else if (bsYear === 2081 && bsMonth === 3) {
-            return calendarData.bsMonthUpperDays[bsMonth - 1][bsMonthUpperDaysIndex - 1];
-          } else if (bsYear === 2081 && bsMonth === 11) {
-            return calendarData.bsMonthUpperDays[bsMonth - 1][bsMonthUpperDaysIndex] - 1;
-          } else if (bsYear === 2081 && bsMonth === 12) {
-            return calendarData.bsMonthUpperDays[bsMonth - 1][bsMonthUpperDaysIndex] + 1;
-          } else {
-            return calendarData.bsMonthUpperDays[bsMonth - 1][bsMonthUpperDaysIndex];
-          }
-        }
+      if (calendarData.monthDaysByYear[bsYear]) {
+        return calendarData.monthDaysByYear[bsYear][bsMonth - 1];
       }
 
       return null;
@@ -984,8 +522,13 @@ var calendarFunctions = {};
       formattedDate = formattedDate.replace(/%d/g, calendarFunctions.getNepaliNumber(bsDate));
       formattedDate = formattedDate.replace(/%y/g, calendarFunctions.getNepaliNumber(bsYear));
       formattedDate = formattedDate.replace(/%m/g, calendarFunctions.getNepaliNumber(bsMonth));
-      formattedDate = formattedDate.replace(/%M/g, calendarData.bsMonths[bsMonth - 1]);
-      formattedDate = formattedDate.replace(/%D/g, calendarData.bsDays[weekDay - 1]);
+      // Get current language from global options (default to 'en')
+      var currentLanguage = window.nepaliDatePickerLanguage || 'en';
+      var months = calendarData.languages[currentLanguage].months;
+      var days = calendarData.languages[currentLanguage].days;
+      
+      formattedDate = formattedDate.replace(/%M/g, months[bsMonth - 1]);
+      formattedDate = formattedDate.replace(/%D/g, days[weekDay - 1]);
       return formattedDate;
     },
     parseFormattedBsDate: function (dateFormat, dateFormattedText) {
@@ -1017,13 +560,19 @@ var calendarFunctions = {};
             extractedFormattedBsDate.bsDate = calendarFunctions.getNumberByNepaliNumber(value);
             diffTextNum += value.length - 2;
           } else if (valueOf === '%D') {
-            extractedFormattedBsDate.bsDay = calendarData.bsDays.indexOf(value) + 1;
+            // Get current language from global options (default to 'en')
+            var currentLanguage = window.nepaliDatePickerLanguage || 'en';
+            var days = calendarData.languages[currentLanguage].days;
+            extractedFormattedBsDate.bsDay = days.indexOf(value) + 1;
             diffTextNum += value.length - 2;
           } else if (valueOf === '%m') {
             extractedFormattedBsDate.bsMonth = calendarFunctions.getNumberByNepaliNumber(value);
             diffTextNum += value.length - 2;
           } else if (valueOf === '%M') {
-            extractedFormattedBsDate.bsMonth = calendarData.bsMonths.indexOf(value) + 1;
+            // Get current language from global options (default to 'en')
+            var currentLanguage = window.nepaliDatePickerLanguage || 'en';
+            var months = calendarData.languages[currentLanguage].months;
+            extractedFormattedBsDate.bsMonth = months.indexOf(value) + 1;
             diffTextNum += value.length - 2;
           }
         }
@@ -1052,7 +601,8 @@ var calendarFunctions = {};
           minDate: null,
           maxDate: null,
           yearStart: calendarData.minBsYear,
-          yearEnd: calendarData.maxBsYear
+          yearEnd: calendarData.maxBsYear,
+          language: 'en' // 'en' for English, 'np' for Nepali
         },
         options
       ),
@@ -1324,13 +874,16 @@ var calendarFunctions = {};
       getMonthDropOption: function ($nepaliDatePicker) {
         var datePickerData = $nepaliDatePicker.data();
         var $monthSpan = $('<div class="current-month-txt">');
-        $monthSpan.text(calendarData.bsMonths[datePickerData.bsMonth - 1]);
+        var currentLanguage = datePickerPlugin.options.language;
+        var months = calendarData.languages[currentLanguage].months;
+        
+        $monthSpan.text(months[datePickerData.bsMonth - 1]);
         $monthSpan.append('<i class="icon icon-drop-down">');
 
         var data = [];
         for (var i = 0; i < 12; i++) {
           data.push({
-            label: calendarData.bsMonths[i],
+            label: months[i],
             value: i + 1
           });
         }
@@ -1379,8 +932,11 @@ var calendarFunctions = {};
       getCalendarHeader: function () {
         var calendarHeader = $('<thead>');
         var tableRow = $('<tr>');
+        var currentLanguage = datePickerPlugin.options.language;
+        var days = calendarData.languages[currentLanguage].days;
+        
         for (var i = 0; i < 7; i++) {
-          tableRow.append('<td>' + calendarData.bsDays[i] + '</td>');
+          tableRow.append('<td>' + days[i] + '</td>');
         }
 
         calendarHeader.append(tableRow);
@@ -1528,6 +1084,8 @@ var calendarFunctions = {};
 
     this.each(function () {
       var $element = $(this);
+      // Set global language for utility functions
+      window.nepaliDatePickerLanguage = datePickerPlugin.options.language;
       datePickerPlugin.init($element);
     });
 
