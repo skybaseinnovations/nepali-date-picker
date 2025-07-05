@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nepali Date Picker Demo</title>
     <link rel="stylesheet" href="src/nepaliDatePicker.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Outfit', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #f8fafc;
             min-height: 100vh;
         }
         
@@ -19,15 +20,16 @@
             margin: 0 auto;
             background: white;
             border-radius: 15px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border: 1.5px solid #e5e7eb;
             overflow: hidden;
         }
         
         .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #3b82f6;
             color: white;
             padding: 30px;
             text-align: center;
+            border-bottom: 2px solid #e5e7eb;
         }
         
         .header h1 {
@@ -38,7 +40,7 @@
         
         .header p {
             margin: 10px 0 0 0;
-            opacity: 0.9;
+            opacity: 0.95;
             font-size: 1.1em;
         }
         
@@ -49,22 +51,22 @@
         .demo-section {
             margin-bottom: 40px;
             padding: 25px;
-            border: 1px solid #e1e5e9;
+            border: 1px solid #e5e7eb;
             border-radius: 10px;
-            background: #fafbfc;
+            background: #f4f6fa;
         }
         
         .demo-section h2 {
-            color: #2c3e50;
+            color: #1e293b;
             margin-top: 0;
             margin-bottom: 20px;
             font-size: 1.5em;
-            border-bottom: 2px solid #667eea;
+            border-bottom: 2px solid #3b82f6;
             padding-bottom: 10px;
         }
         
         .demo-section h3 {
-            color: #34495e;
+            color: #334155;
             margin: 20px 0 10px 0;
             font-size: 1.2em;
         }
@@ -77,14 +79,14 @@
             display: block;
             margin-bottom: 8px;
             font-weight: 600;
-            color: #2c3e50;
+            color: #1e293b;
         }
         
         .form-group input {
             width: 100%;
             max-width: 300px;
             padding: 12px 15px;
-            border: 2px solid #e1e5e9;
+            border: 2px solid #e5e7eb;
             border-radius: 8px;
             font-size: 16px;
             transition: border-color 0.3s ease;
@@ -93,8 +95,8 @@
         
         .form-group input:focus {
             outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            border-color: #3b82f6;
+            background: #e0edfd;
         }
         
         .form-row {
@@ -109,19 +111,30 @@
         }
         
         .code-block {
-            background: #2c3e50;
-            color: #ecf0f1;
-            padding: 20px;
+            background: #f3f4f6;
+            color: #1e293b;
+            padding: 18px 20px;
             border-radius: 8px;
             margin: 15px 0;
             overflow-x: auto;
-            font-family: 'Courier New', monospace;
+            font-family: 'Fira Mono', 'Consolas', 'Menlo', 'Monaco', 'Courier New', monospace;
             font-size: 14px;
+            border: 1px solid #e5e7eb;
+            box-shadow: none;
+            white-space: pre;
+        }
+        
+        .code-block code {
+            background: none;
+            color: inherit;
+            font-family: inherit;
+            font-size: inherit;
+            padding: 0;
         }
         
         .output {
             background: #f8f9fa;
-            border: 1px solid #dee2e6;
+            border: 1px solid #e5e7eb;
             border-radius: 8px;
             padding: 15px;
             margin: 15px 0;
@@ -130,7 +143,7 @@
         }
         
         .btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #3b82f6;
             color: white;
             border: none;
             padding: 12px 24px;
@@ -138,21 +151,22 @@
             cursor: pointer;
             font-size: 16px;
             font-weight: 600;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            transition: background 0.2s, transform 0.2s;
             margin: 5px;
         }
         
         .btn:hover {
+            background: #2563eb;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
         }
         
         .btn-secondary {
-            background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%);
+            background: #e5e7eb;
+            color: #1e293b;
         }
         
         .btn-secondary:hover {
-            box-shadow: 0 5px 15px rgba(149, 165, 166, 0.4);
+            background: #cbd5e1;
         }
         
         .features-grid {
@@ -164,27 +178,27 @@
         
         .feature-card {
             background: white;
-            border: 1px solid #e1e5e9;
+            border: 1px solid #e5e7eb;
             border-radius: 10px;
             padding: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
         
         .feature-card h4 {
-            color: #667eea;
+            color: #3b82f6;
             margin-top: 0;
             margin-bottom: 10px;
         }
         
         .event-log {
-            background: #2c3e50;
-            color: #ecf0f1;
+            background: #f3f4f6;
+            color: #1e293b;
             padding: 15px;
             border-radius: 8px;
             max-height: 200px;
             overflow-y: auto;
             font-family: monospace;
             font-size: 12px;
+            border: 1px solid #e5e7eb;
         }
         
         .event-log .event {
@@ -193,11 +207,11 @@
             border-radius: 4px;
         }
         
-        .event.dateSelect { background: #27ae60; }
-        .event.dateChange { background: #3498db; }
-        .event.monthChange { background: #f39c12; }
-        .event.yearChange { background: #e74c3c; }
-        .event.show { background: #9b59b6; }
+        .event.dateSelect { background: #bbf7d0; color: #166534; }
+        .event.dateChange { background: #dbeafe; color: #1e40af; }
+        .event.monthChange { background: #fef9c3; color: #92400e; }
+        .event.yearChange { background: #fee2e2; color: #991b1b; }
+        .event.show { background: #ede9fe; color: #6d28d9; }
         
         @media (max-width: 768px) {
             .form-row {
@@ -211,6 +225,18 @@
             .content {
                 padding: 20px;
             }
+        }
+        .footer {
+            text-align: center;
+            color: #64748b;
+            font-size: 1em;
+            padding: 30px 0 18px 0;
+            margin-top: 40px;
+            border-top: 1.5px solid #e5e7eb;
+            background: #f8fafc;
+        }
+        .footer strong {
+            color: #3b82f6;
         }
     </style>
 </head>
@@ -563,5 +589,9 @@ function convertBsToAd() {
             output.innerHTML = `[${timestamp}] ${message}`;
         }
     </script>
+    <div class="footer">
+        Made with ❤️ and a little bit of caffeine by <strong>Skybase Innovations</strong>.<br>
+        One of the many things we build so you don't have to.
+    </div>
 </body>
 </html>
