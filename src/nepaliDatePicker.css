@@ -1,22 +1,30 @@
+/* Modern Nepali Date Picker Styles */
+
 .nepali-date-picker {
-  background: #ffffff none repeat scroll 0 0;
-  border: 1px solid #cccccc;
-  box-shadow: 0 5px 15px -5px rgba(0, 0, 0, 0.506);
+  background: #ffffff;
+  border: 1px solid #e1e5e9;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   box-sizing: border-box;
-  color: #333333;
+  color: #1f2937;
   display: block;
-  font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
-  padding: 8px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  padding: 16px;
   position: absolute;
   z-index: 9999;
+  min-width: 280px;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  transition: all 0.2s ease-in-out;
 }
 
+/* Table Styles */
 .nepali-date-picker table {
   background-color: transparent;
   border-collapse: collapse;
@@ -25,36 +33,46 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  border: 2px solid rgba(129, 120, 120, 0.17);
+  border: none;
 }
 
 .nepali-date-picker table thead {
-  background: #dedede;
+  background: transparent;
 }
 
 .nepali-date-picker table th {
-  color: #999;
+  color: #6b7280;
   cursor: default;
-  font-weight: 700;
+  font-weight: 600;
   text-align: center;
-  cursor: default;
-}
-.nepali-date-picker table th {
-  background: #f1f1f1 none repeat scroll 0 0;
+  padding: 8px 4px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: none;
+  background: transparent;
 }
 
 .nepali-date-picker table thead td {
-  color: #8b8686;
-  font-weight: bold;
+  color: #6b7280;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 12px;
 }
 
 .nepali-date-picker table td {
-  border: 1px solid rgba(154, 150, 150, 0.46);
-  color: #666666;
-  padding: 0;
-  width: 35px;
+  border: none;
+  color: #374151;
+  padding: 8px 4px;
+  width: 36px;
+  height: 36px;
   text-align: center;
   font-size: 14px;
+  font-weight: 500;
+  border-radius: 8px;
+  transition: all 0.15s ease-in-out;
+  position: relative;
 }
 
 .nepali-date-picker table tbody td {
@@ -62,126 +80,198 @@
 }
 
 .nepali-date-picker table tbody td.current-month-date:hover {
-  background-color: #718fcd;
-  color: white;
-  font-weight: bold;
+  background-color: #f3f4f6;
+  color: #1f2937;
+  transform: scale(1.05);
 }
 
 .nepali-date-picker table td.other-month-date,
 .nepali-date-picker table td.current-month-date.disable {
-  color: #cccccc;
+  color: #d1d5db;
   cursor: default;
 }
 
 .nepali-date-picker table tbody td.current-month-date.disable:hover {
-  background-color: inherit;
-  color: #cccccc;
-  font-weight: normal;
+  background-color: transparent;
+  color: #d1d5db;
+  transform: none;
 }
 
+/* Active/Selected Date */
+.current-month-date.active,
+.drop-down-content li.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.current-month-date.active:hover {
+  background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+  transform: scale(1.05);
+}
+
+/* Today's Date */
+.nepali-date-picker table tbody td.current-month-date.today {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+}
+
+.nepali-date-picker table tbody td.current-month-date.today:hover {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  transform: scale(1.05);
+}
+
+/* Icon Styles */
 .nepali-date-picker .icon {
-  opacity: 0.5;
-  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAAAeCAYAAADaW7vzAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6Q0NBRjI1NjM0M0UwMTFFNDk4NkFGMzJFQkQzQjEwRUIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6Q0NBRjI1NjQ0M0UwMTFFNDk4NkFGMzJFQkQzQjEwRUIiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpDQ0FGMjU2MTQzRTAxMUU0OTg2QUYzMkVCRDNCMTBFQiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpDQ0FGMjU2MjQzRTAxMUU0OTg2QUYzMkVCRDNCMTBFQiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PoNEP54AAAIOSURBVHja7Jq9TsMwEMcxrZD4WpBYeKUCe+kTMCACHZh4BFfHO/AAIHZGFhYkBBsSEqxsLCAgXKhbXYOTxh9pfJVP+qutnZ5s/5Lz2Y5I03QhWji2GIcgAokWgfCxNvcOCCGKqiSqhUp0laHOne05vdEyGMfkdxJDVjgwDlEQgYQBgx+ULJaWSXXS6r/ER5FBVR8VfGftTKcITNs+a1XpcFoExREIDF14AVIFxgQUS+h520cdud6wNkC0UBw6BCO/HoCYwBhD8QCkQ/x1mwDyD4plh4D6DDV0TAGyo4HcawLIBBSLDkHeH0Mg2yVP3l4TQMZQDDsEOl/MgHQqhMNuE0D+oBh0CIr8MAKyazBH9WyBuKxDWgbXfjNf32TZ1KWm/Ap1oSk/R53UtQ5xTh3LUlMmT8gt6g51Q9p+SobxgJQ/qmsfZhWywGFSl0yBjCLJCMgXail3b7+rumdVJ2YRss4cN+r6qAHDkPWjPjdJCF4n9RmAD/V9A/Wp4NQassDjwlB6XBiCxcJQWmZZb8THFilfy/lfrTvLghq2TqTHrRMTKNJ0sIhdo15RT+RpyWwFdY96UZ/LdQKBGjcXpcc1AlSFEfLmouD+1knuxBDUVrvOBmoOC/rEcN7OQxKVeJTCiAdUzUJhA2Oez9QTkp72OTVcxDcXY8iKNkxGAJXmJCOQwOa6dhyXsOa6XwEGAKdeb5ET3rQdAAAAAElFTkSuQmCC');
+  opacity: 0.7;
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAyMCAyMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyLjUgMTVMMTAgMTIuNUw3LjUgMTVMMTAgMTcuNUwxMi41IDE1WiIgZmlsbD0iIzM3NDE1MSIvPgo8cGF0aCBkPSJNMTAgMkM1LjU4IDIgMiA1LjU4IDIgMTBDMiAxNC40MiA1LjU4IDE4IDEwIDE4QzE0LjQyIDE4IDE4IDE0LjQyIDE4IDEwQzE4IDUuNTggMTQuNDIgMiAxMCAyWiIgc3Ryb2tlPSIjMzc0MTUxIiBzdHJva2Utd2lkdGg9IjEuNSIgZmlsbD0ibm9uZSIvPgo8L3N2Zz4K');
+  background-size: 20px 20px;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: all 0.2s ease-in-out;
 }
 
 .nepali-date-picker .icon:hover {
   opacity: 1;
+  transform: scale(1.1);
 }
 
 .nepali-date-picker .prev-btn.icon {
-  background-position: 80px center;
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAyMCAyMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyLjUgMTVMMTAgMTIuNUw3LjUgMTVMMTAgMTcuNUwxMi41IDE1WiIgZmlsbD0iIzM3NDE1MSIvPgo8cGF0aCBkPSJNMTAgMkM1LjU4IDIgMiA1LjU4IDIgMTBDMiAxNC40MiA1LjU4IDE4IDEwIDE4QzE0LjQyIDE4IDE4IDE0LjQyIDE4IDEwQzE4IDUuNTggMTQuNDIgMiAxMCAyWiIgc3Ryb2tlPSIjMzc0MTUxIiBzdHJva2Utd2lkdGg9IjEuNSIgZmlsbD0ibm9uZSIvPgo8L3N2Zz4K');
+  transform: rotate(90deg);
   float: left;
-  height: 30px;
-  width: 20px;
+  height: 32px;
+  width: 32px;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
-.current-month-date.active,
-.drop-down-content li.active {
-  background-color: #7bde77;
-  color: white;
-  font-weight: bold;
+.nepali-date-picker .prev-btn.icon:hover {
+  background-color: #f3f4f6;
+  transform: rotate(90deg) scale(1.1);
 }
 
 .nepali-date-picker .next-btn.icon {
-  background-position: 0 center;
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAyMCAyMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyLjUgMTVMMTAgMTIuNUw3LjUgMTVMMTAgMTcuNUwxMi41IDE1WiIgZmlsbD0iIzM3NDE1MSIvPgo8cGF0aCBkPSJNMTAgMkM1LjU4IDIgMiA1LjU4IDIgMTBDMiAxNC40MiA1LjU4IDE4IDEwIDE4QzE0LjQyIDE4IDE4IDE0LjQyIDE4IDEwQzE4IDUuNTggMTQuNDIgMiAxMCAyWiIgc3Ryb2tlPSIjMzc0MTUxIiBzdHJva2Utd2lkdGg9IjEuNSIgZmlsbD0ibm9uZSIvPgo8L3N2Zz4K');
+  transform: rotate(-90deg);
   float: right;
-  height: 30px;
-  width: 20px;
+  height: 32px;
+  width: 32px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.nepali-date-picker .next-btn.icon:hover {
+  background-color: #f3f4f6;
+  transform: rotate(-90deg) scale(1.1);
 }
 
 .nepali-date-picker .today-btn.icon {
-  background-position: 130px center;
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAyMCAyMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEwIDJDNi40OCAyIDMuNSA0Ljk4IDMuNSA4LjVDMy41IDEyLjAyIDYuNDggMTUgMTAgMTVDMTMuNTIgMTUgMTYuNSAxMi4wMiAxNi41IDguNUMxNi41IDQuOTggMTMuNTIgMiAxMCAyWiIgZmlsbD0iIzEwYjk4MSIvPgo8cGF0aCBkPSJNMTAgNkM4LjM0IDYgNyA3LjM0IDcgOUM3IDEwLjY2IDguMzQgMTIgMTAgMTJDMTEuNjYgMTIgMTMgMTAuNjYgMTMgOUMxMyA3LjM0IDExLjY2IDYgMTAgNloiIGZpbGw9IndoaXRlIi8+Cjwvc3ZnPgo=');
   display: block;
   float: left;
-  height: 30px;
-  margin: 0 15px;
-  width: 20px;
+  height: 32px;
+  width: 32px;
+  margin: 0 8px;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
+.nepali-date-picker .today-btn.icon:hover {
+  background-color: #f3f4f6;
+  transform: scale(1.1);
+}
+
+/* Header Text Styles */
 .nepali-date-picker .current-month-txt {
-  color: #545b54;
+  color: #1f2937;
   cursor: pointer;
   display: inline-block;
-  font-weight: bold;
-  line-height: 30px;
-  padding-right: 20px;
+  font-weight: 600;
+  line-height: 32px;
+  padding: 0 12px;
   position: relative;
-  text-align: right;
-  width: 80px;
+  text-align: center;
+  min-width: 80px;
+  border-radius: 8px;
+  transition: all 0.2s ease-in-out;
 }
 
 .nepali-date-picker .current-year-txt {
-  color: #545b54;
-  font-weight: bold;
-  padding-right: 20px;
+  color: #1f2937;
+  font-weight: 600;
+  padding: 0 12px;
   cursor: pointer;
   position: relative;
   display: inline-block;
-  line-height: 30px;
+  line-height: 32px;
+  border-radius: 8px;
+  transition: all 0.2s ease-in-out;
 }
 
 .nepali-date-picker .current-year-txt:hover,
 .nepali-date-picker .current-month-txt:hover {
-  text-decoration: underline;
+  background-color: #f3f4f6;
+  text-decoration: none;
 }
 
 .nepali-date-picker .calendar-controller i.icon-drop-down {
-  background-position: 12px -15px;
-  height: 30px;
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iMTIiIHZpZXdCb3g9IjAgMCAxMiAxMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTMgNEw2IDdMOSA0IiBzdHJva2U9IiM2YjcyODAiIHN0cm9rZS13aWR0aD0iMS41IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPC9zdmc+');
+  height: 32px;
   position: absolute;
-  width: 20px;
+  width: 32px;
+  right: 0;
+  top: 0;
+  border-radius: 8px;
+  transition: all 0.2s ease-in-out;
 }
 
+.nepali-date-picker .calendar-controller i.icon-drop-down:hover {
+  background-color: #f3f4f6;
+}
+
+/* Dropdown Styles */
 .nepali-date-picker .drop-down-content {
   background-color: #ffffff;
-  border: 1px solid #cccccc;
-  box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.32);
+  border: 1px solid #e1e5e9;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   display: none;
-  height: 99px;
-  padding: 5px;
+  height: 120px;
+  padding: 8px;
   position: absolute;
   width: 100%;
-  /*overflow: hidden;*/
+  top: 100%;
+  margin-top: 8px;
+  z-index: 10000;
 }
 
 .nepali-date-picker .scrollbar-wrapper {
-  border-left: 1px solid rgba(204, 204, 204, 0.2);
+  border-left: 1px solid #e1e5e9;
   height: 100%;
   position: absolute;
   right: 0;
   top: 0;
-  width: 15px;
+  width: 8px;
 }
 
 .scrollbar {
-  background-color: black;
-  border-radius: 2.5px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 4px;
   display: block;
   height: 100%;
-  opacity: 0.5;
+  opacity: 0.8;
   position: absolute;
-  right: 6.5px;
-  width: 5px;
+  right: 2px;
+  width: 4px;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.scrollbar:hover {
+  opacity: 1;
 }
 
 .nepali-date-picker .drop-down-content .option-wrapper {
@@ -193,36 +283,100 @@
 }
 
 .nepali-date-picker .drop-down-content ul {
-  list-style: outside none none;
+  list-style: none;
   margin: 0;
-  padding: 0 5px 0 0;
+  padding: 0 8px 0 0;
 }
 
 .drop-down-content li {
-  border-bottom: 1px solid rgba(159, 153, 153, 0.39);
-  font-size: 16px;
-  font-weight: normal;
-  line-height: 20px;
-  text-align: right;
+  border-bottom: 1px solid #f3f4f6;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 32px;
+  text-align: center;
+  padding: 4px 8px;
+  border-radius: 8px;
+  margin-bottom: 2px;
+  transition: all 0.15s ease-in-out;
+  cursor: pointer;
 }
 
 .drop-down-content li:hover {
-  background: #718fcd;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  transform: scale(1.02);
 }
 
 .drop-down-content li:last-child {
-  border-bottom: medium none;
+  border-bottom: none;
+  margin-bottom: 0;
 }
 
+/* Scrollbar Styles */
 ::-webkit-scrollbar {
-  width: 13px;
-  height: 13px;
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.1);
+  background: #f3f4f6;
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.5);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 4px;
+  transition: all 0.2s ease-in-out;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .nepali-date-picker {
+    min-width: 260px;
+    padding: 12px;
+  }
+  
+  .nepali-date-picker table td {
+    width: 32px;
+    height: 32px;
+    font-size: 13px;
+  }
+  
+  .nepali-date-picker .current-month-txt,
+  .nepali-date-picker .current-year-txt {
+    min-width: 60px;
+    font-size: 13px;
+  }
+}
+
+/* Focus States for Accessibility */
+.nepali-date-picker table tbody td:focus,
+.nepali-date-picker .prev-btn.icon:focus,
+.nepali-date-picker .next-btn.icon:focus,
+.nepali-date-picker .today-btn.icon:focus,
+.nepali-date-picker .current-month-txt:focus,
+.nepali-date-picker .current-year-txt:focus {
+  outline: 2px solid #667eea;
+  outline-offset: 2px;
+}
+
+/* Animation for dropdown appearance */
+.nepali-date-picker .drop-down-content.show {
+  display: block;
+  animation: fadeInUp 0.2s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
