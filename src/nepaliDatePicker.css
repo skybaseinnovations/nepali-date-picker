@@ -341,18 +341,17 @@
 }
 
 /* Rajdhani for Nepali language in calendar */
-.np-lang .current-month-txt,
-.np-lang .current-year-txt,
-.np-lang th,
-.np-lang td,
-
-.nepali-date-picker,
-.nepali-date-picker .current-month-txt,
-.nepali-date-picker .current-year-txt,
-.nepali-date-picker th,
-.nepali-date-picker td,
-.nepali-date-picker .drop-down-content,
-.nepali-date-picker .drop-down-content li {
+.fancy-font .np-lang .current-month-txt,
+.fancy-font .np-lang .current-year-txt,
+.fancy-font .np-lang th,
+.fancy-font .np-lang td,
+.fancy-font .nepali-date-picker,
+.fancy-font .nepali-date-picker .current-month-txt,
+.fancy-font .nepali-date-picker .current-year-txt,
+.fancy-font .nepali-date-picker th,
+.fancy-font .nepali-date-picker td,
+.fancy-font .nepali-date-picker .drop-down-content,
+.fancy-font .nepali-date-picker .drop-down-content li {
   font-family: 'Rajdhani', sans-serif !important;
   font-weight: 700 !important;
 }

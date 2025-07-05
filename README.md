@@ -45,6 +45,23 @@ git clone https://github.com/skybaseinnovations/nepali-date-picker.git
 
 See [demo.html](demo.html) for advanced usage and configuration.
 
+## Options
+
+| Option      | Type    | Default | Description                                      |
+|------------ |---------|---------|--------------------------------------------------|
+| language    | string  | 'en'    | Calendar language: 'en' (English) or 'np' (Nepali) |
+| fancyFont   | boolean | true    | Use Rajdhani font for the calendar UI            |
+| ...         | ...     | ...     | ...                                              |
+
+### Example
+
+```js
+$('#myInput').nepaliDatePicker({
+  language: 'np',
+  fancyFont: false // disables Rajdhani font, uses system font
+});
+```
+
 ## 🌐 GitHub Pages
 The demo is hosted on GitHub Pages. To enable your own, push to the `main` branch and enable Pages in your repo settings (set root as `/`).
 

@@ -609,7 +609,8 @@ var calendarFunctions = {};
           maxDate: null,
           yearStart: calendarData.minBsYear,
           yearEnd: calendarData.maxBsYear,
-          language: 'en' // 'en' for English, 'np' for Nepali
+          language: 'en', // 'en' for English, 'np' for Nepali
+          fancyFont: true // If true, use Rajdhani font
         },
         options
       ),
@@ -619,6 +620,10 @@ var calendarFunctions = {};
         // Add .np-lang class if language is Nepali
         if (datePickerPlugin.options.language === 'np') {
           $nepaliDatePicker.addClass('np-lang');
+        }
+        // Add .fancy-font class if fancyFont is true
+        if (datePickerPlugin.options.fancyFont) {
+          $nepaliDatePicker.addClass('fancy-font');
         }
         $('body').append($nepaliDatePicker);
         if ($element.val() !== '') {
