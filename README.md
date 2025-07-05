@@ -1,73 +1,35 @@
 # Nepali Date Picker
 
-[![GitHub Pages](https://img.shields.io/badge/demo-online-blue?logo=github)](https://skybaseinnovations.github.io/nepali-date-picker/demo.html)
+A modern Nepali date picker for web apps.
 
-A modern, lightweight, and fully-featured Nepali (Bikram Sambat) date picker for web apps. Supports both Nepali and English languages, beautiful UI, and easy integration.
+## CDN Usage (jsDelivr)
 
-## ✨ Features
-- Bikram Sambat (BS) calendar support
-- English and Nepali language & digits
-- Modern, responsive UI
-- Customizable date format
-- Min/max date, year range, and validation
-- Keyboard and mouse navigation
-- Utility functions for AD/BS conversion
-- ISC License (permissive, open source)
-
-## 🚀 Demo
-See the live demo here:  
-👉 [Nepali Date Picker Demo](https://skybaseinnovations.github.io/nepali-date-picker/demo.html)
-
-## 📦 Installation
-Clone or download this repo, or use the files directly:
-
-```sh
-git clone https://github.com/skybaseinnovations/nepali-date-picker.git
-```
-
-## 🛠 Usage
-1. Include jQuery and the plugin files in your HTML:
+You can use the minified JS and CSS directly from jsDelivr CDN:
 
 ```html
-<link rel="stylesheet" href="src/nepaliDatePicker.css">
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="src/nepaliDatePicker.js"></script>
+<!-- CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/skybaseinnovations/nepali-date-picker@main/dist/datepicker.min.css">
+
+<!-- JS -->
+<script src="https://cdn.jsdelivr.net/gh/skybaseinnovations/nepali-date-picker@main/dist/datepicker.min.js"></script>
 ```
 
-2. Add an input and initialize:
+## Example
 
 ```html
-<input type="text" id="nepali-date">
+<input type="text" id="nepali-date" />
 <script>
-  $('#nepali-date').nepaliDatePicker({ language: 'np' });
+  $(function() {
+    $('#nepali-date').nepaliDatePicker();
+  });
 </script>
 ```
 
-See [demo.html](demo.html) for advanced usage and configuration.
+## Features
+- English/Nepali language support
+- Modern UI
+- Accurate BS↔AD conversion
+- Customizable
 
-## Options
-
-| Option      | Type    | Default | Description                                      |
-|------------ |---------|---------|--------------------------------------------------|
-| language    | string  | 'en'    | Calendar language: 'en' (English) or 'np' (Nepali) |
-| fancyFont   | boolean | true    | Use Rajdhani font for the calendar UI            |
-| ...         | ...     | ...     | ...                                              |
-
-### Example
-
-```js
-$('#myInput').nepaliDatePicker({
-  language: 'np',
-  fancyFont: false // disables Rajdhani font, uses system font
-});
-```
-
-## 🌐 GitHub Pages
-The demo is hosted on GitHub Pages. To enable your own, push to the `main` branch and enable Pages in your repo settings (set root as `/`).
-
-## 📄 License
-[ISC License](LICENSE)
-
----
-
-Made with ❤️ by [Skybase Innovations](https://github.com/skybaseinnovations) 
+## License
+MIT 
