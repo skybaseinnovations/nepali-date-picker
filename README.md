@@ -2,6 +2,8 @@
 
 A modern Nepali date picker for web apps.
 
+[▶️ **Live Demo / Try it Yourself**](https://skybaseinnovations.github.io/nepali-date-picker/)
+
 ## CDN Usage (jsDelivr)
 
 You can use the minified JS and CSS directly from jsDelivr CDN:
