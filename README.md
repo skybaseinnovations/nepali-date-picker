@@ -10,10 +10,10 @@ You can use the minified JS and CSS directly from jsDelivr CDN:
 
 ```html
 <!-- CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/skybaseinnovations/nepali-date-picker@main/dist/datepicker.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/skybaseinnovations/nepali-date-picker@<release>/dist/datepicker.min.css">
 
 <!-- JS -->
-<script src="https://cdn.jsdelivr.net/gh/skybaseinnovations/nepali-date-picker@main/dist/datepicker.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/skybaseinnovations/nepali-date-picker@<release>/dist/datepicker.min.js"></script>
 ```
 
 ## Example
