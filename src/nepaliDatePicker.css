@@ -134,6 +134,51 @@
   background-color: #e0edfd;
 }
 
+.calendar-controller {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
+.calendar-controller .prev-btn.icon,
+.calendar-controller .next-btn.icon,
+.calendar-controller .today-btn.icon {
+  flex: 0 0 auto;
+}
+
+.current-year-txt,
+.current-month-txt {
+  flex: 1 1 0;
+  min-width: 0;
+  margin: 0 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f1f5f9;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  height: 32px;
+  padding: 0 8px;
+  position: relative;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.current-year-txt:hover,
+.current-month-txt:hover,
+.current-year-txt:focus,
+.current-month-txt:focus {
+  background: #e0edfd;
+}
+
+.current-year-txt .icon-drop-down,
+.current-month-txt .icon-drop-down {
+  margin-left: 6px;
+  margin-right: 0;
+}
+
 .nepali-date-picker .current-month-txt,
 .nepali-date-picker .current-year-txt {
   color: #1f2937;

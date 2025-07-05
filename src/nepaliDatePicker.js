@@ -872,11 +872,11 @@ var calendarFunctions = {};
       getCalendarController: function ($nepaliDatePicker) {
         var calendarController = $("<div class='calendar-controller'>");
         calendarController.append('<a href="javascript:void(0);" class="prev-btn icon" title="prev"></a>');
-        calendarController.append('<a href="javascript:void(0);" class="today-btn icon" title=""></a>');
-        calendarController.append(datePickerPlugin.getMonthDropOption($nepaliDatePicker));
+        // Year dropdown first, then month dropdown
         calendarController.append(datePickerPlugin.getYearDropOption($nepaliDatePicker));
+        calendarController.append(datePickerPlugin.getMonthDropOption($nepaliDatePicker));
+        calendarController.append('<a href="javascript:void(0);" class="today-btn icon" title=""></a>');
         calendarController.append('<a href="javascript:void(0);" class="next-btn icon" title="next"></a>');
-
         return calendarController;
       },
       getMonthDropOption: function ($nepaliDatePicker) {
