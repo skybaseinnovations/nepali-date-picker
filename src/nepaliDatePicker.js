@@ -875,7 +875,7 @@ var calendarFunctions = {};
         // Year dropdown first, then month dropdown
         calendarController.append(datePickerPlugin.getYearDropOption($nepaliDatePicker));
         calendarController.append(datePickerPlugin.getMonthDropOption($nepaliDatePicker));
-        calendarController.append('<a href="javascript:void(0);" class="today-btn icon" title=""></a>');
+        calendarController.append('<button type="button" class="today-btn icon" title="today">⦿</button>');
         calendarController.append('<button type="button" class="next-btn icon" title="next">&gt;</button>');
         return calendarController;
       },

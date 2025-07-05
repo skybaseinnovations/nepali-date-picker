@@ -147,20 +147,29 @@
   flex: 0 0 auto;
 }
 
+.calendar-controller .prev-btn.icon,
+.calendar-controller .next-btn.icon {
+  border: 1px solid #d1d5db;
+}
+
+.calendar-controller .today-btn.icon {
+  border: 1px solid #d1d5db;
+}
+
 .current-year-txt,
 .current-month-txt {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 32px;
-  line-height: 32px;
+  height: 24px;
+  font-size: 15px;
+  font-weight: 600;
+  background: #f1f5f9;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
   flex: 1 1 0;
   min-width: 0;
   margin: 0 2px;
-  background: #f1f5f9;
-  border-radius: 6px;
-  font-size: 14px;
-  font-weight: 600;
   padding: 0 8px;
   position: relative;
   cursor: pointer;
