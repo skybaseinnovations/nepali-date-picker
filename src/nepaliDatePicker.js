@@ -31,48 +31,53 @@ var calendarFunctions = {};
     enNumbers: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
 
     // Year range
-    minBsYear: 1970,
+    minBsYear: 2000,
     maxBsYear: 2100,
 
     // Reference date for conversion
     minAdDateEqBsDate: {
-      ad: { year: 1913, month: 4, date: 13 },
-      bs: { year: 1970, month: 1, date: 1 }
-    },
+      ad: { year: 1943, month: 3, date: 14 }, // month: 3 = April (JS Date months are 0-based: 0=Jan, 3=Apr)
+      bs: { year: 2000, month: 1, date: 1 }   // BS months are 1-based: 1=Baisakh
+    }, // Reference: BS 2050/1/1 = AD 1993/4/13 (Tuesday)
+
+    // minAdDateEqBsDate: {
+    //   ad: { year: 1993, month: 3, date: 13 }, // month: 3 = April (JS Date months are 0-based: 0=Jan, 3=Apr)
+    //   bs: { year: 2050, month: 1, date: 1 }   // BS months are 1-based: 1=Baisakh
+    // }, // Reference: BS 2050/1/1 = AD 1993/4/13 (Tuesday)
 
     // Year-based month days data (first element: total days in year, then 12 months)
     monthDaysByYear: {
-      1969: [366, 31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31],
-      1970: [365, 31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
-      1971: [365, 31, 31, 32, 31, 32, 30, 30, 29, 30, 29, 30, 30],
-      1972: [366, 31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
-      1973: [365, 30, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31],
-      1974: [365, 31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
-      1975: [365, 31, 31, 32, 32, 31, 30, 30, 29, 30, 29, 30, 30],
-      1976: [366, 31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
-      1977: [365, 30, 32, 31, 32, 31, 31, 29, 30, 30, 29, 29, 31],
-      1978: [365, 31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
-      1979: [365, 31, 31, 32, 32, 31, 30, 30, 29, 30, 29, 30, 30],
-      1980: [366, 31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
-      1981: [365, 31, 31, 31, 32, 31, 31, 29, 30, 30, 29, 29, 31],
-      1982: [365, 31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
-      1983: [365, 31, 31, 32, 32, 31, 30, 30, 29, 30, 29, 30, 30],
-      1984: [366, 31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
-      1985: [365, 31, 31, 31, 32, 31, 31, 29, 30, 30, 29, 30, 30],
-      1986: [365, 31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
-      1987: [365, 31, 32, 31, 32, 31, 30, 30, 29, 30, 29, 30, 30],
-      1988: [366, 31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
-      1989: [365, 31, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
-      1990: [365, 31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
-      1991: [365, 31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 30],
-      1992: [366, 31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31],
-      1993: [365, 31, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
-      1994: [365, 31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
-      1995: [365, 31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 30],
-      1996: [366, 31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31],
-      1997: [365, 31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
-      1998: [365, 31, 31, 32, 31, 32, 30, 30, 29, 30, 29, 30, 30],
-      1999: [366, 31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
+      // 1969: [366, 31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31],
+      // 1970: [365, 31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
+      // 1971: [365, 31, 31, 32, 31, 32, 30, 30, 29, 30, 29, 30, 30],
+      // 1972: [366, 31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
+      // 1973: [365, 30, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31],
+      // 1974: [365, 31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
+      // 1975: [365, 31, 31, 32, 32, 31, 30, 30, 29, 30, 29, 30, 30],
+      // 1976: [366, 31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
+      // 1977: [365, 30, 32, 31, 32, 31, 31, 29, 30, 30, 29, 29, 31],
+      // 1978: [365, 31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
+      // 1979: [365, 31, 31, 32, 32, 31, 30, 30, 29, 30, 29, 30, 30],
+      // 1980: [366, 31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
+      // 1981: [365, 31, 31, 31, 32, 31, 31, 29, 30, 30, 29, 29, 31],
+      // 1982: [365, 31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
+      // 1983: [365, 31, 31, 32, 32, 31, 30, 30, 29, 30, 29, 30, 30],
+      // 1984: [366, 31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
+      // 1985: [365, 31, 31, 31, 32, 31, 31, 29, 30, 30, 29, 30, 30],
+      // 1986: [365, 31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
+      // 1987: [365, 31, 32, 31, 32, 31, 30, 30, 29, 30, 29, 30, 30],
+      // 1988: [366, 31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
+      // 1989: [365, 31, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      // 1990: [365, 31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
+      // 1991: [365, 31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 30],
+      // 1992: [366, 31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31],
+      // 1993: [365, 31, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+      // 1994: [365, 31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
+      // 1995: [365, 31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 30],
+      // 1996: [366, 31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31],
+      // 1997: [365, 31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
+      // 1998: [365, 31, 31, 32, 31, 32, 30, 30, 29, 30, 29, 30, 30],
+      // 1999: [366, 31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
       2000: [365, 30, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31],
       2001: [365, 31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
       2002: [365, 31, 31, 32, 32, 31, 30, 30, 29, 30, 29, 30, 30],
@@ -156,7 +161,7 @@ var calendarFunctions = {};
       2080: [365, 31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 30],
       2081: [366, 31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31],
       2082: [365, 31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
-      
+
       2083: [365, 31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
       2084: [366, 31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
       2085: [365, 30, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31],
@@ -212,8 +217,8 @@ var calendarFunctions = {};
       2135: [366, 31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31],
       2136: [365, 31, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
       2137: [365, 31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
-      2138: [365, 31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 30],
-      2139: [366, 31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31],
+      2138: [365, 31, 31, 32, 32, 31, 30, 30, 29, 30, 29, 30, 30],
+      2139: [366, 31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
       2140: [365, 31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
       2141: [365, 31, 31, 32, 31, 32, 30, 30, 29, 30, 29, 30, 30],
       2142: [366, 31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
@@ -325,12 +330,6 @@ var calendarFunctions = {};
       2248: [365, 31, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
       2249: [365, 31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
       2250: [365, 31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 30],
-    },
-    // Per-year first weekday for Baisakh 1 (0=Sun, 1=Mon, ...)
-    firstDayOfYear: {
-      2000: 3, // Wednesday
-      2082: 1  // Monday
-      // Add more as needed
     }
   };
 
@@ -472,30 +471,16 @@ var calendarFunctions = {};
 
       // --- New logic for per-year weekday anchor ---
       var firstDay = null;
-      if (calendarData.firstDayOfYear[bsYear] !== undefined) {
-        // Start from Baisakh 1's weekday
-        firstDay = calendarData.firstDayOfYear[bsYear];
-        if (bsMonth > 1) {
-          var daysSum = 0;
-          for (var m = 1; m < bsMonth; m++) {
-            daysSum += calendarData.monthDaysByYear[bsYear][m - 1];
-          }
-          firstDay = (firstDay + daysSum) % 7;
-        }
-        // Now, firstDay is the weekday (0=Sun) for the 1st of this month
-        var bsMonthFirstAdDate = null; // Not used in this mode
-      } else {
-        // Fallback: use reference date calculation
-        var daysNumFromMinBsYear = calendarFunctions.getTotalDaysNumFromMinBsYear(bsYear, bsMonth, bsDate);
-        var adDate = new Date(
-          calendarData.minAdDateEqBsDate.ad.year,
-          calendarData.minAdDateEqBsDate.ad.month,
-          calendarData.minAdDateEqBsDate.ad.date - 1
-        );
-        adDate.setDate(adDate.getDate() + daysNumFromMinBsYear);
-        var bsMonthFirstAdDate = calendarFunctions.getAdDateByBsDate(bsYear, bsMonth, 1);
-        firstDay = bsMonthFirstAdDate.getDay();
-      }
+      var daysNumFromMinBsYear = calendarFunctions.getTotalDaysNumFromMinBsYear(bsYear, bsMonth, bsDate);
+      var adDate = new Date(
+        calendarData.minAdDateEqBsDate.ad.year,
+        calendarData.minAdDateEqBsDate.ad.month,
+        calendarData.minAdDateEqBsDate.ad.date - 1
+      );
+      adDate.setDate(adDate.getDate() + daysNumFromMinBsYear);
+      var bsMonthFirstAdDate = calendarFunctions.getAdDateByBsDate(bsYear, bsMonth, 1);
+      firstDay = bsMonthFirstAdDate.getDay();
+
       var bsMonthDays = calendarFunctions.getBsMonthDays(bsYear, bsMonth);
       bsDate = bsDate > bsMonthDays ? bsMonthDays : bsDate;
       // For the selected date, calculate the weekday
@@ -700,20 +685,8 @@ var calendarFunctions = {};
 
       // Use the same weekday logic as getBsMonthInfoByBsDate
       var firstDay = null;
-      if (calendarData.firstDayOfYear[bsYear] !== undefined) {
-        firstDay = calendarData.firstDayOfYear[bsYear];
-        if (bsMonth > 1) {
-          var daysSum = 0;
-          for (var m = 1; m < bsMonth; m++) {
-            daysSum += calendarData.monthDaysByYear[bsYear][m - 1];
-          }
-          firstDay = (firstDay + daysSum) % 7;
-        }
-        var weekDay = (firstDay + (bsDate - 1)) % 7;
-      } else {
-        var eqAdDate = calendarFunctions.getAdDateByBsDate(bsYear, bsMonth, bsDate);
-        var weekDay = eqAdDate.getDay();
-      }
+      var eqAdDate = calendarFunctions.getAdDateByBsDate(bsYear, bsMonth, bsDate);
+      var weekDay = eqAdDate.getDay();
       var formattedDate = dateFormatPattern;
       // Get current language from global options (default to 'en')
       var currentLanguage = window.nepaliDatePickerLanguage || 'en';
@@ -787,10 +760,10 @@ var calendarFunctions = {};
     // Utility: Convert AD to BS (returns {bsYear, bsMonth, bsDay})
     adToBs: function (adYear, adMonth, adDay) {
       // Dart logic: Reference AD 1913-04-13 = BS 1970-01-01
-      var refAd = new Date(Date.UTC(1913, 3, 13)); // JS months 0-based
+      var refAd = new Date(Date.UTC(1943, 3, 14)); // JS months 0-based
       var targetAd = new Date(Date.UTC(adYear, adMonth - 1, adDay));
       var diff = Math.floor((targetAd - refAd) / (24 * 60 * 60 * 1000));
-      var bsYear = 1970;
+      var bsYear = 2000;
       var bsMonth = 1;
       var bsDay = 1;
       // Advance year
@@ -810,9 +783,9 @@ var calendarFunctions = {};
     // Utility: Convert BS to AD (returns {adYear, adMonth, adDay})
     bsToAd: function (bsYear, bsMonth, bsDay) {
       // Dart logic: Reference BS 1970-01-01 = AD 1913-04-13
-      var refAd = new Date(Date.UTC(1913, 3, 13));
+      var refAd = new Date(Date.UTC(1943, 3, 14));
       var totalDays = 0;
-      for (var y = 1970; y < bsYear; y++) {
+      for (var y = 2000; y < bsYear; y++) {
         totalDays += calendarData.monthDaysByYear[y][0];
       }
       for (var m = 1; m < bsMonth; m++) {
@@ -834,7 +807,7 @@ var calendarFunctions = {};
           defaultDate: '',
           minDate: null,
           maxDate: null,
-          yearStart: 2000,
+          yearStart: calendarData.minBsYear,
           yearEnd: calendarData.maxBsYear,
           language: 'en', // 'en' for English, 'np' for Nepali
           fancyFont: true // If true, use Rajdhani font
@@ -1349,7 +1322,7 @@ window.nepaliDateUtils = {
 
 // --- Test Script for Conversion Accuracy ---
 (function () {
-  
+
   var tests = [
     {
       "bs": {
