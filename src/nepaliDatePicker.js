@@ -17,8 +17,8 @@ var calendarFunctions = {};
     },
     np: {
       months: ['बैशाख', 'जेठ', 'असार', 'साउन', 'भदौ', 'असोज', 'कार्तिक', 'मंसिर', 'पौष', 'माघ', 'फागुन', 'चैत'],
-      days: ['आइत', 'सोम', 'मंगल', 'बुध', 'बिही', 'शुक्र', 'शनि'],
-      shortDays: ['आ', 'सो', 'मं', 'बु', 'बि', 'शु', 'श']
+      days: ['आइतबार', 'सोमबार', 'मंगलबार', 'बुधबार', 'बिहिबार', 'शुक्रबार', 'शनिबार'],
+      shortDays: ['आइत', 'सोम', 'मंगल', 'बुध', 'बिही', 'शुक्र', 'शनि']
     }
   };
 
@@ -933,10 +933,10 @@ var calendarFunctions = {};
         var calendarHeader = $('<thead>');
         var tableRow = $('<tr>');
         var currentLanguage = datePickerPlugin.options.language;
-        var days = calendarData.languages[currentLanguage].days;
+        var shortDays = calendarData.languages[currentLanguage].shortDays;
         
         for (var i = 0; i < 7; i++) {
-          tableRow.append('<td>' + days[i] + '</td>');
+          tableRow.append('<td>' + shortDays[i] + '</td>');
         }
 
         calendarHeader.append(tableRow);
