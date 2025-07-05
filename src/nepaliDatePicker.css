@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;700;900&display=swap');
 /* Compact Modern Nepali Date Picker Styles */
 
 .nepali-date-picker {
@@ -347,5 +348,5 @@
 .np-lang .drop-down-content,
 .np-lang .drop-down-content li {
   font-family: 'Rajdhani', 'Outfit', sans-serif !important;
-  font-weight: 700;
+  font-weight: 900 !important;
 }
