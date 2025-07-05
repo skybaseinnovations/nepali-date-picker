@@ -145,6 +145,30 @@
 .calendar-controller .next-btn.icon,
 .calendar-controller .today-btn.icon {
   flex: 0 0 auto;
+  background: #f1f5f9;
+  border: none;
+  color: #1d4ed8;
+  font-size: 18px;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  margin: 0 1px;
+  padding: 0;
+}
+
+.calendar-controller .prev-btn.icon:hover,
+.calendar-controller .next-btn.icon:hover,
+.calendar-controller .today-btn.icon:hover,
+.calendar-controller .prev-btn.icon:focus,
+.calendar-controller .next-btn.icon:focus,
+.calendar-controller .today-btn.icon:focus {
+  background: #e0edfd;
+  color: #2563eb;
 }
 
 .current-year-txt,
@@ -157,13 +181,23 @@
   justify-content: center;
   background: #f1f5f9;
   border-radius: 6px;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
   height: 32px;
   padding: 0 8px;
   position: relative;
   cursor: pointer;
   transition: background 0.2s;
+  line-height: 1;
+}
+
+.current-year-txt span,
+.current-month-txt span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
 }
 
 .current-year-txt:hover,
@@ -263,6 +297,53 @@
 .drop-down-content li:last-child {
   border-bottom: none;
   margin-bottom: 0;
+}
+
+/* Dropdown improvements */
+.drop-down-content {
+  min-width: 120px;
+  width: 180px;
+  max-width: 220px;
+  left: 0 !important;
+  right: auto !important;
+  top: 100%;
+  margin-top: 2px;
+  border-radius: 8px;
+  box-shadow: 0 6px 24px rgba(59,130,246,0.10);
+  z-index: 10001;
+}
+
+.drop-down-content .option-wrapper {
+  max-height: 220px;
+  min-height: 120px;
+  overflow-y: auto;
+  padding: 0;
+}
+
+.drop-down-content ul {
+  padding: 0 6px 0 0;
+}
+
+.drop-down-content li {
+  font-size: 15px;
+  height: 36px;
+  line-height: 36px;
+  border-radius: 6px;
+  margin-bottom: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 12px;
+}
+
+.drop-down-content li.active {
+  background: #3b82f6;
+  color: #fff;
+}
+
+.drop-down-content li:hover {
+  background: #e0edfd;
+  color: #1d4ed8;
 }
 
 ::-webkit-scrollbar {
