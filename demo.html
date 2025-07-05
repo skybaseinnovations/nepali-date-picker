@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nepali Date Picker Demo</title>
+    <link rel="stylesheet" href="src/nepaliDatePicker.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 300;
+        }
+        
+        .header p {
+            margin: 10px 0 0 0;
+            opacity: 0.9;
+            font-size: 1.1em;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .demo-section {
+            margin-bottom: 40px;
+            padding: 25px;
+            border: 1px solid #e1e5e9;
+            border-radius: 10px;
+            background: #fafbfc;
+        }
+        
+        .demo-section h2 {
+            color: #2c3e50;
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+        
+        .demo-section h3 {
+            color: #34495e;
+            margin: 20px 0 10px 0;
+            font-size: 1.2em;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .form-group input {
+            width: 100%;
+            max-width: 300px;
+            padding: 12px 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+            box-sizing: border-box;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .code-block {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+        
+        .output {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: monospace;
+            font-size: 14px;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            margin: 5px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%);
+        }
+        
+        .btn-secondary:hover {
+            box-shadow: 0 5px 15px rgba(149, 165, 166, 0.4);
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .feature-card {
+            background: white;
+            border: 1px solid #e1e5e9;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .feature-card h4 {
+            color: #667eea;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+        
+        .event-log {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 8px;
+            max-height: 200px;
+            overflow-y: auto;
+            font-family: monospace;
+            font-size: 12px;
+        }
+        
+        .event-log .event {
+            margin-bottom: 5px;
+            padding: 5px;
+            border-radius: 4px;
+        }
+        
+        .event.dateSelect { background: #27ae60; }
+        .event.dateChange { background: #3498db; }
+        .event.monthChange { background: #f39c12; }
+        .event.yearChange { background: #e74c3c; }
+        .event.show { background: #9b59b6; }
+        
+        @media (max-width: 768px) {
+            .form-row {
+                flex-direction: column;
+            }
+            
+            .form-row .form-group {
+                min-width: auto;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🇳🇵 Nepali Date Picker Demo</h1>
+            <p>A comprehensive demonstration of the Nepali Date Picker functionality</p>
+        </div>
+        
+        <div class="content">
+            <!-- Basic Usage Section -->
+            <div class="demo-section">
+                <h2>📅 Basic Usage</h2>
+                <p>Simple date picker with default settings:</p>
+                
+                <div class="form-group">
+                    <label for="basic-date">Select Date:</label>
+                    <input type="text" id="basic-date" placeholder="Click to select date">
+                </div>
+                
+                <div class="code-block">
+// Basic initialization
+$('#basic-date').nepaliDatePicker();
+                </div>
+            </div>
+            
+            <!-- Advanced Configuration Section -->
+            <div class="demo-section">
+                <h2>⚙️ Advanced Configuration</h2>
+                <p>Date picker with custom settings and date range restrictions:</p>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="custom-date">Custom Format Date:</label>
+                        <input type="text" id="custom-date" placeholder="Custom format">
+                    </div>
+                    <div class="form-group">
+                        <label for="range-date">Date Range (2080-2085):</label>
+                        <input type="text" id="range-date" placeholder="Limited range">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="min-date">Min Date (2080/01/01):</label>
+                        <input type="text" id="min-date" placeholder="Minimum date">
+                    </div>
+                    <div class="form-group">
+                        <label for="max-date">Max Date (2085/12/30):</label>
+                        <input type="text" id="max-date" placeholder="Maximum date">
+                    </div>
+                </div>
+                
+                <div class="code-block">
+// Custom format
+$('#custom-date').nepaliDatePicker({
+    dateFormat: "%M %d, %y",
+    closeOnDateSelect: false
+});
+
+// Date range restriction
+$('#range-date').nepaliDatePicker({
+    yearStart: 2080,
+    yearEnd: 2085
+});
+
+// Min/Max date
+$('#min-date').nepaliDatePicker({
+    minDate: "आइत, बैशाख १, २०८०"
+});
+
+$('#max-date').nepaliDatePicker({
+    maxDate: "सोम, पौष १५, २०८५"
+});
+                </div>
+            </div>
+            
+            <!-- Event Handling Section -->
+            <div class="demo-section">
+                <h2>🎯 Event Handling</h2>
+                <p>Demonstrating various events and callbacks:</p>
+                
+                <div class="form-group">
+                    <label for="event-date">Event Demo Date:</label>
+                    <input type="text" id="event-date" placeholder="Watch events below">
+                </div>
+                
+                <h3>Event Log:</h3>
+                <div class="event-log" id="event-log">
+                    <div class="event">Ready to capture events...</div>
+                </div>
+                
+                <div class="code-block">
+// Event handling
+$('#event-date').nepaliDatePicker()
+    .on('dateSelect', function(e) {
+        logEvent('dateSelect', e.datePickerData);
+    })
+    .on('dateChange', function(e) {
+        logEvent('dateChange', e.datePickerData);
+    })
+    .on('monthChange', function(e) {
+        logEvent('monthChange', e.datePickerData);
+    })
+    .on('yearChange', function(e) {
+        logEvent('yearChange', e.datePickerData);
+    })
+    .on('show', function(e) {
+        logEvent('show', e.datePickerData);
+    });
+                </div>
+            </div>
+            
+            <!-- Utility Functions Section -->
+            <div class="demo-section">
+                <h2>🔧 Utility Functions</h2>
+                <p>Demonstrating calendar utility functions:</p>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="ad-date">AD Date:</label>
+                        <input type="date" id="ad-date" value="2024-01-15">
+                    </div>
+                    <div class="form-group">
+                        <label for="bs-date">BS Date:</label>
+                        <input type="text" id="bs-date" readonly>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="bs-year">BS Year:</label>
+                        <input type="number" id="bs-year" value="2080" min="1970" max="2100">
+                    </div>
+                    <div class="form-group">
+                        <label for="bs-month">BS Month:</label>
+                        <input type="number" id="bs-month" value="10" min="1" max="12">
+                    </div>
+                    <div class="form-group">
+                        <label for="bs-day">BS Day:</label>
+                        <input type="number" id="bs-day" value="1" min="1" max="32">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <button class="btn" onclick="convertAdToBs()">Convert AD to BS</button>
+                        <button class="btn" onclick="convertBsToAd()">Convert BS to AD</button>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-secondary" onclick="getCurrentBsDate()">Get Current BS Date</button>
+                        <button class="btn btn-secondary" onclick="formatBsDate()">Format BS Date</button>
+                    </div>
+                </div>
+                
+                <div class="output" id="utility-output">
+                    Utility function output will appear here...
+                </div>
+                
+                <div class="code-block">
+// Convert AD to BS
+function convertAdToBs() {
+    const adDate = new Date(document.getElementById('ad-date').value);
+    const bsDate = calendarFunctions.getBsDateByAdDate(
+        adDate.getFullYear(),
+        adDate.getMonth() + 1,
+        adDate.getDate()
+    );
+    document.getElementById('bs-date').value = 
+        `${bsDate.bsYear}/${bsDate.bsMonth}/${bsDate.bsDate}`;
+}
+
+// Convert BS to AD
+function convertBsToAd() {
+    const bsYear = parseInt(document.getElementById('bs-year').value);
+    const bsMonth = parseInt(document.getElementById('bs-month').value);
+    const bsDay = parseInt(document.getElementById('bs-day').value);
+    
+    const adDate = calendarFunctions.getAdDateByBsDate(bsYear, bsMonth, bsDay);
+    document.getElementById('ad-date').value = 
+        adDate.toISOString().split('T')[0];
+}
+                </div>
+            </div>
+            
+            <!-- Features Overview -->
+            <div class="demo-section">
+                <h2>✨ Features Overview</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <h4>🌍 Nepali Calendar Support</h4>
+                        <p>Full support for Bikram Sambat (BS) calendar with accurate date conversions and Nepali number display.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>📱 Responsive Design</h4>
+                        <p>Mobile-friendly interface with touch support and responsive layout that works on all devices.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>🎨 Customizable Styling</h4>
+                        <p>Easy to customize appearance with CSS classes and configurable themes to match your design.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>⚡ Event System</h4>
+                        <p>Comprehensive event system for date selection, month/year changes, and picker interactions.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>🔒 Date Validation</h4>
+                        <p>Built-in date range validation with min/max date support and year range restrictions.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>🛠️ Utility Functions</h4>
+                        <p>Rich set of utility functions for date conversion, formatting, and calendar calculations.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Nepali Date Picker -->
+    <script src="src/nepaliDatePicker.js"></script>
+    
+    <script>
+        $(document).ready(function() {
+            // Basic date picker
+            $('#basic-date').nepaliDatePicker();
+            
+            // Custom format date picker
+            $('#custom-date').nepaliDatePicker({
+                dateFormat: "%M %d, %y",
+                closeOnDateSelect: false
+            });
+            
+            // Date range restriction
+            $('#range-date').nepaliDatePicker({
+                yearStart: 2080,
+                yearEnd: 2085
+            });
+            
+            // Min date
+            $('#min-date').nepaliDatePicker({
+                minDate: "आइत, बैशाख १, २०८०"
+            });
+            
+            // Max date
+            $('#max-date').nepaliDatePicker({
+                maxDate: "सोम, पौष १५, २०८५"
+            });
+            
+            // Event handling
+            $('#event-date').nepaliDatePicker()
+                .on('dateSelect', function(e) {
+                    logEvent('dateSelect', e.datePickerData);
+                })
+                .on('dateChange', function(e) {
+                    logEvent('dateChange', e.datePickerData);
+                })
+                .on('monthChange', function(e) {
+                    logEvent('monthChange', e.datePickerData);
+                })
+                .on('yearChange', function(e) {
+                    logEvent('yearChange', e.datePickerData);
+                })
+                .on('show', function(e) {
+                    logEvent('show', e.datePickerData);
+                });
+            
+            // Initialize utility functions
+            getCurrentBsDate();
+        });
+        
+        // Event logging function
+        function logEvent(eventType, data) {
+            const eventLog = document.getElementById('event-log');
+            const timestamp = new Date().toLocaleTimeString();
+            const eventDiv = document.createElement('div');
+            eventDiv.className = `event ${eventType}`;
+            eventDiv.innerHTML = `[${timestamp}] ${eventType}: ${data.formattedDate} (${data.bsYear}/${data.bsMonth}/${data.bsDate})`;
+            eventLog.appendChild(eventDiv);
+            eventLog.scrollTop = eventLog.scrollHeight;
+        }
+        
+        // Utility functions
+        function convertAdToBs() {
+            const adDate = new Date(document.getElementById('ad-date').value);
+            const bsDate = calendarFunctions.getBsDateByAdDate(
+                adDate.getFullYear(),
+                adDate.getMonth() + 1,
+                adDate.getDate()
+            );
+            document.getElementById('bs-date').value = 
+                `${bsDate.bsYear}/${bsDate.bsMonth}/${bsDate.bsDate}`;
+            
+            updateUtilityOutput(`AD ${adDate.toDateString()} = BS ${bsDate.bsYear}/${bsDate.bsMonth}/${bsDate.bsDate}`);
+        }
+        
+        function convertBsToAd() {
+            const bsYear = parseInt(document.getElementById('bs-year').value);
+            const bsMonth = parseInt(document.getElementById('bs-month').value);
+            const bsDay = parseInt(document.getElementById('bs-day').value);
+            
+            const adDate = calendarFunctions.getAdDateByBsDate(bsYear, bsMonth, bsDay);
+            document.getElementById('ad-date').value = 
+                adDate.toISOString().split('T')[0];
+            
+            updateUtilityOutput(`BS ${bsYear}/${bsMonth}/${bsDay} = AD ${adDate.toDateString()}`);
+        }
+        
+        function getCurrentBsDate() {
+            const currentDate = new Date();
+            const bsDate = calendarFunctions.getBsDateByAdDate(
+                currentDate.getFullYear(),
+                currentDate.getMonth() + 1,
+                currentDate.getDate()
+            );
+            const formattedDate = calendarFunctions.bsDateFormat("%D, %M %d, %y", bsDate.bsYear, bsDate.bsMonth, bsDate.bsDate);
+            updateUtilityOutput(`Current BS Date: ${formattedDate}`);
+        }
+        
+        function formatBsDate() {
+            const bsYear = parseInt(document.getElementById('bs-year').value);
+            const bsMonth = parseInt(document.getElementById('bs-month').value);
+            const bsDay = parseInt(document.getElementById('bs-day').value);
+            
+            const formattedDate = calendarFunctions.bsDateFormat("%D, %M %d, %y", bsYear, bsMonth, bsDay);
+            updateUtilityOutput(`Formatted BS Date: ${formattedDate}`);
+        }
+        
+        function updateUtilityOutput(message) {
+            const output = document.getElementById('utility-output');
+            const timestamp = new Date().toLocaleTimeString();
+            output.innerHTML = `[${timestamp}] ${message}`;
+        }
+    </script>
+</body>
+</html>
