@@ -25,6 +25,64 @@ You can use the minified JS and CSS directly from jsDelivr CDN:
 </script>
 ```
 
+## Plugin Options
+
+| Option              | Type     | Default                | Description                                                        |
+|---------------------|----------|------------------------|--------------------------------------------------------------------|
+| `dateFormat`        | string   | `'%D, %M %d, %y'`      | Date format string (see below for tokens)                          |
+| `closeOnDateSelect` | boolean  | `true`                 | Whether to close the picker after selecting a date                 |
+| `defaultDate`       | string   | `''`                   | Default date to show (in BS, formatted as per `dateFormat`)        |
+| `minDate`           | string   | `null`                 | Minimum selectable date (in BS, formatted as per `dateFormat`)     |
+| `maxDate`           | string   | `null`                 | Maximum selectable date (in BS, formatted as per `dateFormat`)     |
+| `yearStart`         | number   | `2000`                 | Start year for year dropdown                                       |
+| `yearEnd`           | number   | `2100`                 | End year for year dropdown                                         |
+| `language`          | string   | `'en'`                 | `'en'` for English, `'np'` for Nepali                              |
+| `fancyFont`         | boolean  | `true`                 | Use Rajdhani font for the calendar UI                              |
+
+## Date Format Tokens
+
+- `%D` — Day of week (e.g., Sunday, आइतबार)
+- `%M` — Month name (e.g., Baisakh, बैशाख)
+- `%d` — Day of month (e.g., 01, १)
+- `%m` — Month number (e.g., 01, १)
+- `%y` — Year (e.g., 2080, २०८०)
+
+## Initialization Example
+
+```js
+$('#myInput').nepaliDatePicker({
+  language: 'np',
+  dateFormat: '%y-%m-%d',
+  yearStart: 2070,
+  yearEnd: 2090,
+  minDate: '2070-01-01',
+  maxDate: '2090-12-30',
+  fancyFont: false,
+  closeOnDateSelect: false
+});
+```
+
+## Utility Functions
+
+After including the script, you can use:
+
+```js
+// Convert AD to BS
+window.nepaliDateUtils.adToBs(adYear, adMonth, adDay); // returns {bsYear, bsMonth, bsDay}
+
+// Convert BS to AD
+window.nepaliDateUtils.bsToAd(bsYear, bsMonth, bsDay); // returns {adYear, adMonth, adDay}
+```
+
+## Events
+
+- `dateSelect` — Fired when a date is selected.
+- `dateChange` — Fired when the date changes.
+- `monthChange` — Fired when the month changes.
+- `yearChange` — Fired when the year changes.
+- `show` — Picker is shown.
+- `close` — Picker is closed.
+
 ## Features
 - English/Nepali language support
 - Modern UI
