@@ -93,17 +93,9 @@
   transform: scale(1.04);
 }
 
-.nepali-date-picker table tbody td.current-month-date.today {
-  background: #22d3ee;
-  color: #fff;
-  font-weight: 600;
-  box-shadow: 0 2px 6px rgba(34, 211, 238, 0.10);
-}
-
-.nepali-date-picker table tbody td.current-month-date.today:hover {
-  background: #06b6d4;
-  color: #fff;
-  transform: scale(1.04);
+/* If .today is not active, use a subtle border and normal background */
+.nepali-date-picker table tbody td.current-month-date.today:not(.active) {
+  color: #2563eb;
 }
 
 .nepali-date-picker .icon {

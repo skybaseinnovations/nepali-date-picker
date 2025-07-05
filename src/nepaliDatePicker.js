@@ -1221,6 +1221,21 @@ var calendarFunctions = {};
                 $td.addClass('active');
               }
               datePickerPlugin.disableIfOutOfRange($td, datePickerData, minBsDate, maxBsDate, calendarDate);
+              // Calculate today's Nepali date
+              var todayAd = new Date();
+              var todayBs = calendarFunctions.getBsDateByAdDate(
+                todayAd.getFullYear(),
+                todayAd.getMonth() + 1,
+                todayAd.getDate()
+              );
+              // Add .today class if this cell matches today's BS date
+              if (
+                calendarDate == todayBs.bsDate &&
+                datePickerData.bsMonth == todayBs.bsMonth &&
+                datePickerData.bsYear == todayBs.bsYear
+              ) {
+                $td.addClass('today');
+              }
               tableRow.append($td);
             } else {
               var currentLanguage = datePickerPlugin.options.language;
