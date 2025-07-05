@@ -827,12 +827,19 @@ var calendarFunctions = {};
         }
         $('body').append($nepaliDatePicker);
         if ($element.val() !== '') {
+          var parsed = calendarFunctions.parseFormattedBsDate(datePickerPlugin.options.dateFormat, $element.val());
+          $nepaliDatePicker.data('selectedBsYear', parsed.bsYear);
+          $nepaliDatePicker.data('selectedBsMonth', parsed.bsMonth);
+          $nepaliDatePicker.data('selectedBsDate', parsed.bsDate);
           datePickerPlugin.renderFormattedSpecificDateCalendar(
             $nepaliDatePicker,
             datePickerPlugin.options.dateFormat,
             $element.val()
           );
         } else {
+          $nepaliDatePicker.removeData('selectedBsYear');
+          $nepaliDatePicker.removeData('selectedBsMonth');
+          $nepaliDatePicker.removeData('selectedBsDate');
           datePickerPlugin.renderCurrentMonthCalendar($nepaliDatePicker);
         }
         datePickerPlugin.addEventHandler($element, $nepaliDatePicker);
@@ -938,26 +945,26 @@ var calendarFunctions = {};
           if ($(this).hasClass('disable')) {
             return;
           }
-
           var datePickerData = $nepaliDatePicker.data();
           var bsYear = datePickerData.bsYear;
           var bsMonth = datePickerData.bsMonth;
           var preDate = datePickerData.bsDate;
           var bsDate = $(this).data('date');
+          // Store globally selected date
+          $nepaliDatePicker.data('selectedBsYear', bsYear);
+          $nepaliDatePicker.data('selectedBsMonth', bsMonth);
+          $nepaliDatePicker.data('selectedBsDate', bsDate);
           var dateText = calendarFunctions.bsDateFormat(datePickerPlugin.options.dateFormat, bsYear, bsMonth, bsDate);
           $element.val(dateText);
           datePickerPlugin.setCalendarDate($nepaliDatePicker, bsYear, bsMonth, bsDate);
           datePickerPlugin.renderMonthCalendar($nepaliDatePicker);
-
           if (preDate !== bsDate) datePickerPlugin.eventFire($element, $nepaliDatePicker, 'dateChange');
           datePickerPlugin.eventFire($element, $nepaliDatePicker, 'dateSelect');
-
           if (datePickerPlugin.options.closeOnDateSelect) {
             $nepaliDatePicker.hide();
           } else {
             $nepaliDatePicker.show();
           }
-
           return false;
         });
 
@@ -1206,7 +1213,11 @@ var calendarFunctions = {};
                 calendarFunctions.getNepaliNumber(calendarDate, currentLanguage) +
                 '</td>'
               );
-              if (calendarDate == datePickerData.bsDate) {
+              if (
+                calendarDate == $nepaliDatePicker.data('selectedBsDate') &&
+                datePickerData.bsMonth == $nepaliDatePicker.data('selectedBsMonth') &&
+                datePickerData.bsYear == $nepaliDatePicker.data('selectedBsYear')
+              ) {
                 $td.addClass('active');
               }
               datePickerPlugin.disableIfOutOfRange($td, datePickerData, minBsDate, maxBsDate, calendarDate);
