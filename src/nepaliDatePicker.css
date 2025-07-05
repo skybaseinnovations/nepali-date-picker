@@ -338,3 +338,14 @@
     transform: translateY(0);
   }
 }
+
+/* Rajdhani for Nepali language in calendar */
+.np-lang .current-month-txt,
+.np-lang .current-year-txt,
+.np-lang th,
+.np-lang td,
+.np-lang .drop-down-content,
+.np-lang .drop-down-content li {
+  font-family: 'Rajdhani', 'Outfit', sans-serif !important;
+  font-weight: 700;
+}

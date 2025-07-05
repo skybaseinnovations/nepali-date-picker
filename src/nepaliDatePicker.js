@@ -616,6 +616,10 @@ var calendarFunctions = {};
       init: function ($element) {
         $element.prop('readonly', true);
         var $nepaliDatePicker = $('<div class="nepali-date-picker">');
+        // Add .np-lang class if language is Nepali
+        if (datePickerPlugin.options.language === 'np') {
+          $nepaliDatePicker.addClass('np-lang');
+        }
         $('body').append($nepaliDatePicker);
         if ($element.val() !== '') {
           datePickerPlugin.renderFormattedSpecificDateCalendar(
